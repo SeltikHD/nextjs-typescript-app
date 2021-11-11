@@ -49,8 +49,8 @@ export default function customHead({
     return (
         <Head>
             <meta charSet="UTF-8" />
-            <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-            <meta http-equiv="Content-Type" content="text/html" />
+            <meta httpEquiv="X-UA-Compatible" content="chrome=1" />
+            <meta httpEquiv="Content-Type" content="text/html" />
             <title data-react-helmet="true">{title}</title>
             <meta data-react-helmet="true" name="description" content={description} />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
