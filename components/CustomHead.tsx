@@ -15,12 +15,12 @@ type Props = {
     ogImageHeight?: number;
 };
 
-export const orgName = 'CEK Ltda.'; //Name of you organization
-const defaultTitle: string = 'CEK - Clínica Educacional Kids'; //Default page title
-const defaultAppName: string = 'CEK'; //Default app name
-const defaultKeywords: string = 'CEK, clinica educacional kids, centro educacional kids'; //Main keywords
+export const orgName = 'Default Ltda.'; //Name of you organization
+const defaultTitle: string = 'Next.js and Typescript app'; //Default page title
+const defaultAppName: string = 'Next and Typescript app'; //Default app name
+const defaultKeywords: string = ''; //Main keywords
 let finalKeywords: string = defaultKeywords;
-const defaultDescription: string = 'CEK, a escola para novas descobertas!'; //Default description
+const defaultDescription: string = 'This is a default Next.js and Typescript app!'; //Default description
 const defaultRobots: string = 'all'; //Default robots configs
 const themeColor: string = '#fff'; //Your app theme color
 const defaultURL = 'localhost:3000/'; //Default URL of your site
