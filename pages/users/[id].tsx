@@ -8,16 +8,16 @@ import CustomHead from '../../components/CustomHead';
 
 type Props = {
     item?: User;
-    errors?: string;
+    error?: string;
 };
 
-const StaticPropsDetail = ({ item, errors }: Props) => {
-    if (errors) {
+const StaticPropsDetail = ({ item, error }: Props) => {
+    if (error) {
         return (
             <Layout>
                 <CustomHead title="Error | Next.js + TypeScript Example" />
                 <p>
-                    <span style={{ color: 'red' }}>Error:</span> {errors}
+                    <span style={{ color: 'red' }}>Error:</span> {error}
                 </p>
             </Layout>
         );
@@ -55,6 +55,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         // will receive `item` as a prop at build time
         return { props: { item } };
     } catch (err) {
-        return { props: { errors: err } };
+        return { props: { error: err } };
     }
 };

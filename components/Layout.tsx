@@ -3,7 +3,6 @@ import Link from 'next/link';
 
 type Props = {
   children?: ReactNode
-  title?: string
 }
 
 const Layout = ({ children }: Props) => (
