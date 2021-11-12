@@ -11,12 +11,12 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     }[process.env.NODE_ENV];
 
     //Pages that should not be part of the sitemap.xml
-    const notStaticPages = ['_app.js', '_document.js', '_error.js', 'sitemap.xml.js'];
+    const notIncludedPages = ['_app.js', '_document.js', '_error.js', 'sitemap.xml.js'];
 
     const staticPages = fs
         .readdirSync('pages')
         .filter((staticPage) => {
-            return !notStaticPages.includes(staticPage);
+            return !notIncludedPages.includes(staticPage);
         })
         .map((staticPagePath) => {
             return `${baseUrl}/${staticPagePath}`;
