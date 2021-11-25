@@ -49,6 +49,7 @@ export default function customHead({
     return (
         <Head>
             <meta charSet="UTF-8" />
+            <meta http-equiv="Content-Language" content="pt-br" />
             <meta httpEquiv="X-UA-Compatible" content="chrome=1" />
             <meta httpEquiv="Content-Type" content="text/html" />
             <title data-react-helmet="true">{title}</title>
@@ -60,6 +61,7 @@ export default function customHead({
             <meta name="author" content={orgName} />
             <link rel="icon" href="/favicon.ico" />
             <meta name="description" content={description} />
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
 
             <meta name="mobile-web-app-capable" content="yes" />
             <meta name="application-name" content={appName} />
