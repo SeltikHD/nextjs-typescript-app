@@ -49,7 +49,7 @@ export default function customHead({
     return (
         <Head>
             <meta charSet="UTF-8" />
-            <meta http-equiv="Content-Language" content="pt-br" />
+            <meta httpEquiv="Content-Language" content="pt-br" />
             <meta httpEquiv="X-UA-Compatible" content="chrome=1" />
             <meta httpEquiv="Content-Type" content="text/html" />
             <title data-react-helmet="true">{title}</title>
