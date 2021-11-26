@@ -1,5 +1,6 @@
 import fs from 'fs';
 import { GetServerSideProps } from 'next';
+import path from 'path';
 
 export default function Sitemap() {}
 
@@ -11,15 +12,29 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     }[process.env.NODE_ENV];
 
     //Pages that should not be part of the sitemap.xml
-    const notIncludedPages = ['_app.js', '_document.js', '_error.js', 'sitemap.xml.js'];
+    const notIncludedPages = [
+        '_app.js',
+        '_app.jsx',
+        '_app.ts',
+        '_app.tsx',
+        '_document.js',
+        '_document.jsx',
+        '_document.ts',
+        '_document.tsx',
+        '_error.js',
+        '_error.jsx',
+        '_error.ts',
+        '_error.tsx',
+        'sitemap.xml.js',
+    ];
 
     const staticPages = fs
-        .readdirSync('pages')
+        .readdirSync('src/pages')
         .filter((staticPage) => {
             return !notIncludedPages.includes(staticPage);
         })
         .map((staticPagePath) => {
-            return `${baseUrl}/${staticPagePath}`;
+            return `${baseUrl}/${path.parse(staticPagePath).name}`;
         });
 
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
