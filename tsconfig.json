@@ -2,6 +2,9 @@
     "compilerOptions": {
         "target": "es6", // Specify ECMAScript target version
         "lib": ["es6", "dom", "dom.iterable", "esnext"], // List of library files to be included in the compilation
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
         "allowJs": true, // Allow JavaScript files to be compiled
         "skipLibCheck": true, // Skip type checking of all declaration files
         "esModuleInterop": true, // Disables namespace imports (import * as fs from "fs") and enables CJS/AMD/UMD style imports (import fs from "fs")
@@ -20,8 +23,8 @@
         "noUnusedParameters": true, // Report errors on unused parameters
         "incremental": true, // Enable incremental compilation by reading/writing information from prior compilations to a file on disk
         "noFallthroughCasesInSwitch": true, // Report errors for fallthrough cases in switch statement
-        "baseUrl": "."
+        "baseUrl": "src"
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/_app.tsx", "src/pages/_document.tsx"],
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src"],
     "exclude": ["node_modules"]
 }

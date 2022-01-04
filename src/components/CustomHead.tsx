@@ -1,5 +1,7 @@
 import Head from 'next/head';
 import { ReactNode } from 'react';
+import getConfig from 'next/config';
+const { publicRuntimeConfig } = getConfig();
 
 type Props = {
     children?: ReactNode;
@@ -15,19 +17,19 @@ type Props = {
     ogImageHeight?: number;
 };
 
-export const orgName = 'Default Ltda.'; //Name of you organization
-const defaultTitle: string = 'Next.js and Typescript app'; //Default page title
-const defaultAppName: string = 'Next and Typescript app'; //Default app name
-const defaultKeywords: string = ''; //Main keywords
+export const orgName = 'Default Ltda.'; //Name of your organization
+const defaultTitle = 'Default'; //Default page title
+const defaultAppName = 'Default'; //Default app name
+const defaultKeywords = ''; //Main keywords
 let finalKeywords: string = defaultKeywords;
-const defaultDescription: string = 'This is a default Next.js and Typescript app!'; //Default description
-const defaultRobots: string = 'all'; //Default robots configs
-const themeColor: string = '#fff'; //Your app theme color
-const defaultURL = 'localhost:3000/'; //Default URL of your site
+const defaultDescription = 'Default description (='; //Default description
+const defaultRobots = 'all'; //Default robots configs
+const themeColor = '#fff'; //Your app theme color
+const defaultURL = publicRuntimeConfig.rootUrl; //Default URL of your site
 const iconsPath = '/img/icons/'; //Your icons path
 const defaultOgImage = '/img/favicon.png'; //Your og image
 const defaultOgImageType = 'image/png'; //Type of your og image
-const defaultOgImageWidth = 800; //Width of yout og image
+const defaultOgImageWidth = 800; //Width of your og image
 const defaultOgImageHeight = 800; //Height of your og image
 
 export default function customHead({
@@ -44,7 +46,7 @@ export default function customHead({
     ogImageHeight = defaultOgImageHeight,
 }: Props) {
     if (keywords) {
-        finalKeywords = defaultKeywords + ', ' + keywords;
+        finalKeywords = `${defaultKeywords}, ${keywords}`;
     }
     return (
         <Head>
@@ -59,9 +61,8 @@ export default function customHead({
             <meta name="keywords" content={finalKeywords} />
             <meta name="robots" content={robots} />
             <meta name="author" content={orgName} />
-            <link rel="icon" href="favicon.ico" />
+            <link rel="icon" href="/favicon.ico" />
             <meta name="description" content={description} />
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
 
             <meta name="mobile-web-app-capable" content="yes" />
             <meta name="application-name" content={appName} />
@@ -69,48 +70,48 @@ export default function customHead({
             <meta name="msapplication-TileColor" content={themeColor} />
             <meta name="msapplication-starturl" content={url} />
 
-            <meta name="msapplication-TileImage" content={iconsPath + 'favicon.ico'} />
-            <link rel="shortcut icon" href={iconsPath + 'favicon.ico'} type="image/x-icon" />
-            <link rel="apple-touch-icon" href={iconsPath + 'apple-touch-icon/apple-touch-icon.png'} />
+            <meta name="msapplication-TileImage" content={`${iconsPath}favicon.ico`} />
+            <link rel="shortcut icon" href={`${iconsPath}favicon.ico`} type="image/x-icon" />
+            <link rel="apple-touch-icon" href={`${iconsPath}apple-touch-icon/apple-touch-icon.png`} />
             <link
                 rel="apple-touch-icon"
                 sizes="57x57"
-                href={iconsPath + 'apple-touch-icon/apple-touch-icon-57x57.png'}
+                href={`${iconsPath}apple-touch-icon/apple-touch-icon-57x57.png`}
             />
             <link
                 rel="apple-touch-icon"
                 sizes="72x72"
-                href={iconsPath + 'apple-touch-icon/apple-touch-icon-72x72.png'}
+                href={`${iconsPath}apple-touch-icon/apple-touch-icon-72x72.png`}
             />
             <link
                 rel="apple-touch-icon"
                 sizes="76x76"
-                href={iconsPath + 'apple-touch-icon/apple-touch-icon-76x76.png'}
+                href={`${iconsPath}apple-touch-icon/apple-touch-icon-76x76.png`}
             />
             <link
                 rel="apple-touch-icon"
                 sizes="114x114"
-                href={iconsPath + 'apple-touch-icon/apple-touch-icon-114x114.png'}
+                href={`${iconsPath}apple-touch-icon/apple-touch-icon-114x114.png`}
             />
             <link
                 rel="apple-touch-icon"
                 sizes="120x120"
-                href={iconsPath + 'apple-touch-icon/apple-touch-icon-120x120.png'}
+                href={`${iconsPath}apple-touch-icon/apple-touch-icon-120x120.png`}
             />
             <link
                 rel="apple-touch-icon"
                 sizes="144x144"
-                href={iconsPath + 'apple-touch-icon/apple-touch-icon-144x144.png'}
+                href={`${iconsPath}apple-touch-icon/apple-touch-icon-144x144.png`}
             />
             <link
                 rel="apple-touch-icon"
                 sizes="152x152"
-                href={iconsPath + 'apple-touch-icon/apple-touch-icon-152x152.png'}
+                href={`${iconsPath}apple-touch-icon/apple-touch-icon-152x152.png`}
             />
             <link
                 rel="apple-touch-icon"
                 sizes="180x180"
-                href={iconsPath + 'apple-touch-icon/apple-touch-icon-180x180.png'}
+                href={`${iconsPath}apple-touch-icon/apple-touch-icon-180x180.png`}
             />
 
             <meta property="og:title" content={title} />
@@ -122,8 +123,8 @@ export default function customHead({
 
             <meta property="og:image" content={ogImage} />
             <meta property="og:image:type" content={ogImageType} />
-            <meta property="og:image:width" content={ogImageWidth.toString()} />
-            <meta property="og:image:height" content={ogImageHeight.toString()} />
+            <meta property="og:image:width" content={`${ogImageWidth}`} />
+            <meta property="og:image:height" content={`${ogImageHeight}`} />
             <meta name="twitter:card" content="summary_large_image" />
 
             {children}
