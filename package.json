@@ -1,7 +1,14 @@
 {
     "name": "nextjs-typescript-app",
-    "version": "1.0.0",
+    "version": "1.0.3",
     "private": true,
+    "description": "This is a template that uses Next.js with TypeScript, MUI v5, Prisma and some other very useful dependencies.",
+    "repository": "https://github.com/SeltikHD/nextjs-typescript-app.git",
+    "bugs": {
+      "url": "https://github.com/SeltikHD/nextjs-typescript-app/issues"
+    },
+    "homepage": "https://github.com/SeltikHD/nextjs-typescript-app",
+    "author": "SeltikHD",
     "scripts": {
         "dev": "next",
         "build": "next build",
