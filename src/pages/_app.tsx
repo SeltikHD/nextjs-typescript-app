@@ -5,6 +5,7 @@ import type { AppProps } from 'next/app';
 import getTheme from 'components/UI/Theme';
 import useDarkMode from 'use-dark-mode';
 import { useEffect, useState } from "react";
+import Script from "next/script";
 
 export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     const darkMode = useDarkMode();
@@ -18,6 +19,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
         <SessionProvider session={session}>
             <ThemeProvider theme={theme}>
                 <CssBaseline />
+                <Script src="noflash.js" />
                 <Component {...pageProps} />
             </ThemeProvider>
         </SessionProvider>
