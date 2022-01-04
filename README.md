@@ -1,47 +1,45 @@
-# TypeScript Next.js example
+# Next.js, TypeScript, MUI v5, Prisma template
 
-This is a really simple project that shows the usage of Next.js with TypeScript.
-
-## Preview
-
-Preview the example live on [StackBlitz](http://stackblitz.com/):
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-typescript)
-
-## Deploy your own
-
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-typescript&project-name=with-typescript&repository-name=with-typescript)
+This is a template that uses [Next.js](https://nextjs.org/) with [TypeScript](https://www.typescriptlang.org/), [MUI v5](https://mui.com/), [Prisma](https://www.prisma.io/) and some other very useful dependencies.
 
 ## How to use it?
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+Execute with [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) or [Git Bash](https://git-scm.com/) to bootstrap the example:
 
 ```bash
-npx create-next-app --example with-typescript with-typescript-app
+yarn create next-app 
+--example=https://github.com/SeltikHD/nextjs-typescript-app
 # or
-yarn create next-app --example with-typescript with-typescript-app
+git clone https://github.com/SeltikHD/nextjs-typescript-app.git
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+After running these commands, run:
+
+```bash
+cd your-folder-app
+yarn prepare
+```
 
 ## Notes
 
-This example shows how to integrate the TypeScript type system into Next.js. Since TypeScript is supported out of the box with Next.js, all we have to do is to install TypeScript.
+This template comes with a custom React hook [use-dark-mode](https://www.npmjs.com/package/use-dark-mode).
 
-```
-npm install --save-dev typescript
-```
+### Also included
 
-To enable TypeScript's features, we install the type declarations for React and Node.
+- [Axios](https://www.npmjs.com/package/axios)
+- [React If](https://www.npmjs.com/package/react-if)
+- [React Hook Form](https://www.npmjs.com/package/react-hook-form)
 
-```
-npm install --save-dev @types/react @types/react-dom @types/node
-```
+### Other dev dependencies
 
-When we run `next dev` the next time, Next.js will start looking for any `.ts` or `.tsx` files in our project and builds it. It even automatically creates a `tsconfig.json` file for our project with the recommended settings.
+- [Lint Staged](https://www.npmjs.com/package/lint-staged)
+- [Next Sitemap (To use this dependency, delete 'src/pages/sitemap.xml.ts')](https://www.npmjs.com/package/next-sitemap)
 
-Next.js has built-in TypeScript declarations, so we'll get autocompletion for Next.js' modules straight away.
+### Others that are also included, but you decide if they are needed for your project
 
-A `type-check` script is also added to `package.json`, which runs TypeScript's `tsc` CLI in `noEmit` mode to run type-checking separately. You can then include this, for example, in your `test` scripts.
+- [Gray Matter](https://www.npmjs.com/package/gray-matter)
+- [Nodemailer (required for NextAuth email sign in)](https://www.npmjs.com/package/nodemailer)
+- [React Markdown](https://www.npmjs.com/package/react-markdown)
+- [React Syntax Highlighter](https://www.npmjs.com/package/react-syntax-highlighter)
+
+**All dependencies are already pre-configured**, to change the settings, look at the wiki of each dependency.
