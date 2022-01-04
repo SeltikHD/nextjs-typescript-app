@@ -1,5 +1,18 @@
 import { Box } from "@mui/material";
-import NextImage, { StaticImport } from 'next/image';
+import NextImage from 'next/image';
+
+interface StaticImageData {
+    src: string;
+    height: number;
+    width: number;
+    blurDataURL?: string;
+}
+
+interface StaticRequire {
+    default: StaticImageData;
+}
+
+type StaticImport = StaticRequire | StaticImageData;
 
 type Props = {
     width?: string;
