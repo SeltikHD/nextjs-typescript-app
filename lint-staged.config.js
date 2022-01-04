@@ -1,7 +1,7 @@
 // lint-staged.config.js
 module.exports = {
     // Type check TypeScript files
-    //'**/*.(ts|tsx)': () => 'yarn tsc --noEmit',
+    '**/*.(ts|tsx)': () => 'yarn tsc --noEmit',
 
     // Lint then format TypeScript and JavaScript files
     '**/*.(ts|tsx|js|jsx)': (filenames) => [
