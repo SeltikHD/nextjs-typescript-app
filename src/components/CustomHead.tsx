@@ -18,15 +18,15 @@ type Props = {
 };
 
 export const orgName = 'Default Ltda.'; //Name of your organization
-const defaultTitle = 'Default'; //Default page title
-const defaultAppName = 'Default'; //Default app name
+const defaultTitle = 'NextJS TypeScript Template'; //Default page title
+const defaultAppName = 'NextJS TypeScript Template'; //Default app name
 const defaultKeywords = ''; //Main keywords
 let finalKeywords: string = defaultKeywords;
-const defaultDescription = 'Default description (='; //Default description
+const defaultDescription = 'This template uses Next JS, MUI v5, Prisma, TypeScript and some other very useful dependencies.'; //Default description
 const defaultRobots = 'all'; //Default robots configs
-const themeColor = '#fff'; //Your app theme color
+const themeColor = '#9b9b9b'; //Your app theme color
 const defaultURL = publicRuntimeConfig.rootUrl; //Default URL of your site
-const iconsPath = '/img/icons/'; //Your icons path
+const iconsPath = '/img/icons/'; //Your icons path (I recommend the iconifier.net website)
 const defaultOgImage = '/img/favicon.png'; //Your og image
 const defaultOgImageType = 'image/png'; //Type of your og image
 const defaultOgImageWidth = 800; //Width of your og image
@@ -61,7 +61,11 @@ export default function customHead({
             <meta name="keywords" content={finalKeywords} />
             <meta name="robots" content={robots} />
             <meta name="author" content={orgName} />
-            <link rel="icon" href="/favicon.ico" />
+            <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+            <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+            <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+            <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+            <link rel="manifest" href="/manifest.json" />
             <meta name="description" content={description} />
 
             <meta name="mobile-web-app-capable" content="yes" />
