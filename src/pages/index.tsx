@@ -21,11 +21,11 @@ const useStyles = makeStyles((theme: Theme) => ({
         padding: theme.spacing(2)
     },
     bgPrimary: {
-        backgroundColor: theme.palette.mode === 'dark' ? grey[900] : grey[500],
+        backgroundColor: theme.palette.mode === 'dark' ? '#1C1E1F' : grey[500],
         color: theme.palette.mode === 'dark' ? grey[50] : grey[900]
     },
     bgSecondary: {
-        backgroundColor: theme.palette.mode === 'dark' ? grey[500] : grey[900],
+        backgroundColor: theme.palette.mode === 'dark' ? grey[500] : '#1C1E1F',
         color: theme.palette.mode === 'dark' ? grey[900] : grey[50]
     }
 }));
@@ -37,7 +37,7 @@ export default function Page({ READMEData }: InferGetStaticPropsType<typeof getS
     return (
         <Layout>
             <Grid container flexDirection="column">
-                <Grid item component="main" className={classes.bgPrimary} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '80vh', borderBottom: '1px solid #fff', padding: '2em' }}>
+                <Grid item component="main" className={classes.bgPrimary} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '80vh', padding: '2em' }}>
                     <Typography variant="h2" component="h1" align="center" gutterBottom>
                         A basic (but very useful) template.
                     </Typography>

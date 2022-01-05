@@ -30,8 +30,8 @@ const useStyles = makeStyles((theme: Theme) => ({
             }
         },
         '& .MuiButtonBase-root': {
-            margin: theme.spacing(2),
-        },
+            margin: theme.spacing(2)
+        }
     },
     providerButton: {
         [theme.breakpoints.up('sm')]: {
@@ -77,7 +77,7 @@ function EmailForm({ onClose }: Props) {
                 <Button variant="contained" onClick={onClose}>
                     Cancelar
                 </Button>
-                <Button type="submit" variant="contained" color="primary">
+                <Button type="submit" variant="contained">
                     Entrar
                 </Button>
             </div>

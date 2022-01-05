@@ -300,7 +300,7 @@ export default function MainHeader() {
     return (
         <Box component="header" sx={{ flexGrow: 1 }}>
             <AppBar position="static" /*enableColorOnDark*/ sx={{ position: 'fixed', zIndex: 10 }}>
-                <Toolbar>
+                <Toolbar sx={{ backgroundColor: '#000' }}>
                     <IconButton
                         size="large"
                         edge="start"

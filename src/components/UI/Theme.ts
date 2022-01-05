@@ -42,6 +42,9 @@ let darkTheme = createTheme({
     palette: {
         //...baseTheme.palette,
         mode: 'dark',
+        primary: {
+            main: '#0A66B2',
+        },
     },
 });
 
