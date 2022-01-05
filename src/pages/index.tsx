@@ -53,7 +53,7 @@ export default function Page({ READMEData }: InferGetStaticPropsType<typeof getS
                                         const language = className?.replace("language-", "");
 
                                         return (
-                                            <SyntaxHighlighter language={language} style={vscDarkPlus}>
+                                            <SyntaxHighlighter language={language} style={vscDarkPlus} wrapLongLines={true}>
                                                 {children}
                                             </SyntaxHighlighter>
                                         );

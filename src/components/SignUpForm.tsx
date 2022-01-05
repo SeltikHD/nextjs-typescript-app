@@ -25,13 +25,21 @@ const useStyles = makeStyles((theme: Theme) => ({
         '& .MuiTextField-root': {
             margin: theme.spacing(1),
             width: '40vw',
+            [theme.breakpoints.down('sm')]: {
+                width: '80vw'
+            }
         },
         '& .MuiButtonBase-root': {
             margin: theme.spacing(2),
         },
     },
     providerButton: {
-        width: '20vw'
+        [theme.breakpoints.up('sm')]: {
+            width: '40vw'
+        },
+        [theme.breakpoints.down('sm')]: {
+            width: '80vw'
+        }
     }
 }));
 
@@ -80,16 +88,28 @@ function EmailForm({ onClose }: Props) {
 export default function SignUpForm({ onClose }: Props) {
     const classes = useStyles();
     const providers = [
-        [
-            "google", //ID
-            "Google", //Provider Name
-        ]
+        {
+            id: "google", //ID
+            name: "Google", //Provider Name
+        },
+        {
+            id: "facebook", //ID
+            name: "Facebook", //Provider Name
+        },
+        {
+            id: "twitter", //ID
+            name: "Twitter", //Provider Name
+        },
+        {
+            id: "github", //ID
+            name: "GitHub", //Provider Name
+        }
     ];
 
     const loginOptions = (
         <Box className={classes.root}>
             {providers.map((provider) => (
-                <Button className={classes.providerButton} variant="contained" startIcon={getProviderIcon(provider[0])} onClick={() => signIn(provider[0])} key={provider[1]}>{provider[1]}</Button>
+                <Button className={classes.providerButton} variant="contained" startIcon={getProviderIcon(provider.id)} onClick={() => signIn(provider.id)} key={provider.name}>{provider.name}</Button>
             ))}
             <Button className={classes.providerButton} variant="contained" startIcon={getProviderIcon("email")} onClick={() => { handleEmailForm(true) }}>Email</Button>
         </Box>

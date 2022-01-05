@@ -7,8 +7,7 @@ This is a template that uses [Next.js](https://nextjs.org/) with [TypeScript](ht
 Execute with [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) or [Git Bash](https://git-scm.com/) to bootstrap the example:
 
 ```bash
-yarn create next-app 
---example=https://github.com/SeltikHD/nextjs-typescript-app
+yarn create next-app --example=https://github.com/SeltikHD/nextjs-typescript-app
 # or
 git clone https://github.com/SeltikHD/nextjs-typescript-app.git
 ```

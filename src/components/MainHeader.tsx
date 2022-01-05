@@ -247,18 +247,22 @@ export default function MainHeader() {
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
-            <MenuItem>
-                <IconButton
-                    size="large"
-                    aria-label={`show ${notificationsNumber} new notifications`}
-                    color="inherit"
-                >
-                    <Badge badgeContent={notificationsNumber} color="error">
-                        <NotificationsIcon />
-                    </Badge>
-                </IconButton>
-                <p>Notificações</p>
-            </MenuItem>
+            <If condition={authorized}>
+                <Then>
+                    <MenuItem>
+                        <IconButton
+                            size="large"
+                            aria-label={`show ${notificationsNumber} new notifications`}
+                            color="inherit"
+                        >
+                            <Badge badgeContent={notificationsNumber} color="error">
+                                <NotificationsIcon />
+                            </Badge>
+                        </IconButton>
+                        <p>Notificações</p>
+                    </MenuItem>
+                </Then>
+            </If>
             <MenuItem onClick={() => { handleMobileMenuClose(); handleOpenSettings(); }}>
                 <IconButton
                     size="large"
