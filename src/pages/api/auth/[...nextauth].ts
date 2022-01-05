@@ -150,13 +150,13 @@ export default NextAuth({
     events: {},
 
     // Enable debug messages in the console if you are having problems
-    debug: true,
+    debug: false,
 
     //Theme options
     theme: {
         colorScheme: 'auto',
         //brandColor: '',
-        //logo: ''
+        logo: '/img/favicon.png',
     },
 });
 
