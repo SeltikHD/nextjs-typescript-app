@@ -42,3 +42,9 @@ This template comes with a custom React hook [use-dark-mode](https://www.npmjs.c
 - [React Syntax Highlighter](https://www.npmjs.com/package/react-syntax-highlighter)
 
 **All dependencies are already pre-configured**, to change the settings, look at the wiki of each dependency.
+
+## Preview
+
+### [Heroku](https://nextjs-typescript-app.herokuapp.com/)
+
+### [Vercel](https://nextjs-typescript-app.vercel.app/)

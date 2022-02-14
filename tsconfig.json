@@ -23,7 +23,8 @@
         "noUnusedParameters": true, // Report errors on unused parameters
         "incremental": true, // Enable incremental compilation by reading/writing information from prior compilations to a file on disk
         "noFallthroughCasesInSwitch": true, // Report errors for fallthrough cases in switch statement
-        "baseUrl": "src"
+        "baseUrl": "src",
+        "typeRoots": ["node_modules/@types"]
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src"],
     "exclude": ["node_modules"]

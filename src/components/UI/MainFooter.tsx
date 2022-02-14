@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import SuperLink from './SuperLink';
+import SuperLink from '../SuperLink';
 import { grey } from '@mui/material/colors';
 
 function Copyright() {
@@ -30,7 +30,7 @@ export default function Footer() {
         >
             <Container maxWidth="sm">
                 <Typography variant="body1">
-                    This is a website template with React, Next JS, MUI, NextAuth and some other dependencies, <SuperLink href="https://github.com/SeltikHD/nextjs-typescript-app/blob/next-auth_material-ui/README.md">take a look at the README</SuperLink>.
+                    This is a website template with React, Next JS, MUI, NextAuth and some other dependencies, <SuperLink href="https://github.com/SeltikHD/nextjs-typescript-app/blob/master/README.md">take a look at the README</SuperLink>.
                 </Typography>
                 <Copyright />
             </Container>

@@ -1,10 +1,11 @@
-import Header from './MainHeader';
-import Footer from './MainFooter';
+import Header from './UI/MainHeader';
+import Footer from './UI/MainFooter';
 import CustomHead from './CustomHead';
-import StatusBar from './StatusBar';
+import StatusBar from './UI/StatusBar';
+import { ReactNode } from 'react';
 
-interface LayoutProps {
-    children: React.ReactNode;
+type LayoutProps = {
+    children: ReactNode;
     customHead?: boolean;
     readStatusBar?: boolean;
 }

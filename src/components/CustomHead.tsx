@@ -56,7 +56,7 @@ export default function customHead({
             <meta httpEquiv="Content-Type" content="text/html" />
             <title data-react-helmet="true">{title}</title>
             <meta data-react-helmet="true" name="description" content={description} />
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <meta name='viewport' content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover' />
             <meta name="copyright" content={orgName} />
             <meta name="keywords" content={finalKeywords} />
             <meta name="robots" content={robots} />
@@ -68,6 +68,14 @@ export default function customHead({
             <link rel="manifest" href="/manifest.json" />
             <meta name="description" content={description} />
 
+            <meta name='application-name' content={title} />
+            <meta name='apple-mobile-web-app-capable' content='yes' />
+            <meta name='apple-mobile-web-app-status-bar-style' content='default' />
+            <meta name='apple-mobile-web-app-title' content={title} />
+            <meta name='description' content={description} />
+            <meta name='format-detection' content='telephone=no' />
+            <meta name='mobile-web-app-capable' content='yes' />
+            <meta name='msapplication-config' content='/icons/browserconfig.xml' />
             <meta name="mobile-web-app-capable" content="yes" />
             <meta name="application-name" content={appName} />
             <meta name="theme-color" content={themeColor} />

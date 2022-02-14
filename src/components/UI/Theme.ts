@@ -1,9 +1,5 @@
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 
-type GetThemeProps = {
-    themeName: string;
-};
-
 const baseTheme = createTheme({
     components: {
         MuiCssBaseline: {
@@ -59,7 +55,7 @@ let lightTheme = createTheme({
 darkTheme = responsiveFontSizes(darkTheme);
 lightTheme = responsiveFontSizes(lightTheme);
 
-export default function getTheme({ themeName = 'light' }: GetThemeProps) {
+export default function getTheme(themeName: string) {
     return themeName === 'dark' ? darkTheme : lightTheme;
 }
 

@@ -6,11 +6,12 @@ import { getMDContent } from 'utils/utils';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from "react-syntax-highlighter/dist/cjs/styles/prism";
-import SuperLink from 'components/SuperLink';
 import { useState } from 'react';
 import Dialog from 'components/Dialog';
 import { makeStyles } from '@mui/styles';
 import { grey } from '@mui/material/colors';
+import FadeBox from 'components/FadeBox';
+import SuperLink from 'components/SuperLink';
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -37,50 +38,52 @@ export default function Page({ READMEData }: InferGetStaticPropsType<typeof getS
     return (
         <Layout>
             <Grid container flexDirection="column">
-                <Grid item component="main" className={classes.bgPrimary} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '80vh', padding: '2em' }}>
-                    <Typography variant="h2" component="h1" align="center" gutterBottom>
-                        A basic (but very useful) template.
-                    </Typography>
-                    <Typography variant="h5" component="h2" align="center" paragraph>
-                        This template uses Next JS, MUI v5, Prisma, TypeScript and some other very useful dependencies, as shown in the section below.
-                    </Typography>
-                    <Button variant="contained" startIcon={<TextSnippetIcon />} onClick={() => setReadMeOpen(true)} size="large" sx={{ backgroundColor: '#7e00fc', color: '#fff' }}>View Read Me</Button>
-                    <Dialog open={readMeOpen} onClose={() => setReadMeOpen(false)}>
-                        <Grid container flexDirection="column">
-                            <ReactMarkdown
-                                components={{
-                                    code: ({ className, children }) => {
-                                        const language = className?.replace("language-", "");
+                <FadeBox>
+                    <Grid item component="main" className={`${classes.bgPrimary} fade`} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '80vh', padding: '2em' }}>
+                        <Typography variant="h2" component="h1" align="center" gutterBottom>
+                            A basic (but very useful) template.
+                        </Typography>
+                        <Typography variant="h5" component="h2" align="center" paragraph>
+                            This template uses Next JS, MUI v5, Prisma, TypeScript and some other very useful dependencies, as shown in the section below.
+                        </Typography>
+                        <Button variant="contained" startIcon={<TextSnippetIcon />} onClick={() => setReadMeOpen(true)} size="large" sx={{ backgroundColor: '#7e00fc', color: '#fff' }}>View Read Me</Button>
+                        <Dialog open={readMeOpen} onClose={() => setReadMeOpen(false)}>
+                            <Grid container flexDirection="column">
+                                <ReactMarkdown
+                                    components={{
+                                        code: ({ className, children }) => {
+                                            const language = className?.replace("language-", "");
 
-                                        return (
-                                            <SyntaxHighlighter language={language} style={vscDarkPlus} wrapLongLines={true}>
-                                                {children}
-                                            </SyntaxHighlighter>
-                                        );
-                                    },
-                                    a: ({ href, children }) => (
-                                        <SuperLink href={href} target="_blank">{children}</SuperLink>
-                                    ),
-                                    p: ({ children }) => (
-                                        <Typography variant="body1" component="p" align="center" gutterBottom>{children}</Typography>
-                                    ),
-                                    h1: ({ children }) => (
-                                        <Typography variant="h2" component="h1" align="center" gutterBottom>{children}</Typography>
-                                    ),
-                                    h2: ({ children }) => (
-                                        <Typography variant="h4" component="h2" align="center" gutterBottom>{children}</Typography>
-                                    ),
-                                    h3: ({ children }) => (
-                                        <Typography variant="h5" component="h3" align="center" gutterBottom>{children}</Typography>
-                                    )
-                                }}
-                                className={classes.root}
-                            >
-                                {READMEData.content}
-                            </ReactMarkdown>
-                        </Grid>
-                    </Dialog>
-                </Grid>
+                                            return (
+                                                <SyntaxHighlighter language={language} style={vscDarkPlus} wrapLongLines={true}>
+                                                    {children}
+                                                </SyntaxHighlighter>
+                                            );
+                                        },
+                                        a: ({ href, children }) => (
+                                            <SuperLink href={href} variant="inherit" target="_blank">{children}</SuperLink>
+                                        ),
+                                        p: ({ children }) => (
+                                            <Typography variant="body1" component="p" align="center" gutterBottom>{children}</Typography>
+                                        ),
+                                        h1: ({ children }) => (
+                                            <Typography variant="h2" component="h1" align="center" gutterBottom>{children}</Typography>
+                                        ),
+                                        h2: ({ children }) => (
+                                            <Typography variant="h3" component="h2" align="center" gutterBottom>{children}</Typography>
+                                        ),
+                                        h3: ({ children }) => (
+                                            <Typography variant="h5" component="h3" align="center" gutterBottom>{children}</Typography>
+                                        )
+                                    }}
+                                    className={classes.root}
+                                >
+                                    {READMEData.content}
+                                </ReactMarkdown>
+                            </Grid>
+                        </Dialog>
+                    </Grid>
+                </FadeBox>
             </Grid>
         </Layout>
     );

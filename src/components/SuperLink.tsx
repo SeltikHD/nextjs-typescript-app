@@ -33,9 +33,10 @@ export default function SuperLink({
     text = '',
     variant = 'body2',
     underline = 'none',
-    color = '#4682b4',
+    color = '#39CCCC',
     onClick,
 }: Props) {
+    
     return (
         <NextLink href={href} passHref>
             <MUILink variant={variant} underline={underline} color={color} onClick={onClick} target={target}>
