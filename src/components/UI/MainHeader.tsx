@@ -9,7 +9,6 @@ import MailIcon from '@mui/icons-material/Mail';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { ReactNode, useState } from 'react';
 import SignUpDialog from '../SignUpDialog';
-import SuperLink from '../SuperLink';
 import { signOut, useSession } from 'next-auth/react';
 import { Else, If, Then } from 'react-if';
 import useDarkMode from 'use-dark-mode';
