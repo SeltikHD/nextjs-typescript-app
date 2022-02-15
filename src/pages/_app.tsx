@@ -15,6 +15,13 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
     const [theme, setTheme] = useState<Theme>(getTheme('light'));
     const router = useRouter();
 
+    useLayoutEffect(() => {
+        const mode = darkMode.value ? 'dark' : 'light';
+        if (theme.palette.mode != mode)
+            setTheme(getTheme(darkMode.value ? 'dark' : 'light'));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [darkMode.value]);
+
     useEffect(() => {
         const handleStart = () => {
             NProgress.start();
@@ -32,11 +39,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
             router.events.off('routeChangeComplete', handleStop)
             router.events.off('routeChangeError', handleStop)
         }
-    }, [router])
-
-    useLayoutEffect(() => {
-        setTheme(getTheme(darkMode.value ? 'dark' : 'light'));
-    }, [darkMode.value]);
+    }, [router]);
 
     return (
         <SessionProvider session={session}>

@@ -110,7 +110,7 @@ dist
 .DS_Store
 
 # Lock files
-# yarn.lock
+yarn.lock
 package-lock.json
 
 # PWA files

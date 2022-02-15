@@ -54,7 +54,7 @@ export default function customHead({
             <meta httpEquiv="Content-Type" content="text/html" />
             <title data-react-helmet="true">{title}</title>
             <meta data-react-helmet="true" name="description" content={description} />
-            <meta name='viewport' content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover' />
+            <meta name='viewport' content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover' />
             <meta name="copyright" content={orgName} />
             <meta name="keywords" content={finalKeywords} />
             <meta name="robots" content={robots} />
