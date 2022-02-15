@@ -120,3 +120,7 @@ package-lock.json
 **/public/sw.js.map
 **/public/workbox-*.js.map
 **/public/worker-*.js.map
+
+#Sitemap files
+**/public/sitemap.xml
+**/public/sitemap-*.xml

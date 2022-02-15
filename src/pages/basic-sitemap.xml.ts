@@ -1,3 +1,5 @@
+//To use this sitemap, you need rename the basic-sitemap file to 'sitemap.xml.ts'.
+
 import fs from 'fs';
 import { GetServerSideProps } from 'next';
 import path from 'path';

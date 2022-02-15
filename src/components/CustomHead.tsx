@@ -1,7 +1,5 @@
 import Head from 'next/head';
 import { ReactNode } from 'react';
-import getConfig from 'next/config';
-const { publicRuntimeConfig } = getConfig();
 
 type Props = {
     children?: ReactNode;
@@ -25,7 +23,7 @@ let finalKeywords: string = defaultKeywords;
 const defaultDescription = 'This template uses Next JS, MUI v5, Prisma, TypeScript and some other very useful dependencies.'; //Default description
 const defaultRobots = 'all'; //Default robots configs
 const themeColor = '#9b9b9b'; //Your app theme color
-const defaultURL = publicRuntimeConfig.rootUrl; //Default URL of your site
+const defaultURL = 'localhost:3000'; //Default URL of your site
 const iconsPath = '/img/icons/'; //Your icons path (I recommend the iconifier.net website)
 const defaultOgImage = '/img/favicon.png'; //Your og image
 const defaultOgImageType = 'image/png'; //Type of your og image
