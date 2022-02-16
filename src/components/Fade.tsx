@@ -1,7 +1,8 @@
 import type { SxProps, Theme } from '@mui/material';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
-import { ElementType, ReactNode, useEffect, useRef, useState } from 'react';
+import type { ElementType, ReactNode } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 type Props = {
     children: ReactNode;
@@ -23,7 +24,7 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-export default function Fade({ children, component = "div", sx,  yOffset = 0}: Props) {
+export default function Fade({ children, component = "div", sx, yOffset = 0 }: Props) {
     const self = useRef<Element>(null);
     const [visible, setVisible] = useState(false);
     const classes = useStyles();

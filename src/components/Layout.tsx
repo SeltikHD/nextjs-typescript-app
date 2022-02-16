@@ -1,8 +1,10 @@
-import Header from './UI/MainHeader';
-import Footer from './UI/MainFooter';
 import CustomHead from './CustomHead';
-import StatusBar from './UI/StatusBar';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import dynamic from 'next/dynamic';
+
+const StatusBar = dynamic(() => import('./UI/StatusBar'), {/* loading: () => <CircularProgress disableShrink />,*/ ssr: false });
+const Footer = dynamic(() => import('./UI/MainFooter'), {/* loading: () => <CircularProgress disableShrink />,*/ ssr: false });
+const Header = dynamic(() => import('./UI/MainHeader'), {/* loading: () => <CircularProgress disableShrink />,*/ ssr: false });
 
 type LayoutProps = {
     children: ReactNode;

@@ -1,18 +1,18 @@
 import { Button, CircularProgress, Grid, Theme, Typography } from '@mui/material';
-import TextSnippetIcon from '@mui/icons-material/TextSnippet';
 import Layout from 'components/Layout';
 import { InferGetStaticPropsType } from 'next';
 import { getMDContent } from 'utils/utils';
-import { lazy, Suspense, useState } from 'react';
-import Dialog from 'components/Dialog';
+import { useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import { grey } from '@mui/material/colors';
-import FadeBox from 'components/FadeBox';
-import SuperLink from 'components/SuperLink';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import dynamic from 'next/dynamic';
 
-const ReactMarkdown = lazy(() => import('react-markdown'));
-const SyntaxHighlighter = lazy(() => import('../components/Lazy/SyntaxHighlighter'));
+const ReactMarkdown = dynamic(() => import('react-markdown'), { loading: () => <CircularProgress disableShrink />, ssr: false });
+const SyntaxHighlighter = dynamic(() => import('../components/Lazy/SyntaxHighlighter'), { loading: () => <CircularProgress disableShrink />, ssr: false });
+const TextSnippetIcon = dynamic(() => import('@mui/icons-material/TextSnippet'), { ssr: false });
+const SuperLink = dynamic(() => import('../components/SuperLink'), { ssr: false });
+const FadeBox = dynamic(() => import('../components/FadeBox'), { ssr: false });
+const Dialog = dynamic(() => import('../components/Dialog'), { ssr: false });
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -50,39 +50,37 @@ export default function Page({ READMEData }: InferGetStaticPropsType<typeof getS
                         <Button variant="contained" startIcon={<TextSnippetIcon />} onClick={() => setReadMeOpen(true)} size="large" sx={{ backgroundColor: '#7e00fc', color: '#fff' }}>View Read Me</Button>
                         <Dialog open={readMeOpen} onClose={() => setReadMeOpen(false)}>
                             <Grid container flexDirection="column">
-                                <Suspense fallback={<CircularProgress disableShrink />}>
-                                    <ReactMarkdown
-                                        components={{
-                                            code: ({ className, children }) => {
-                                                const language = className?.replace("language-", "");
+                                <ReactMarkdown
+                                    components={{
+                                        code: ({ className, children }) => {
+                                            const language = className?.replace("language-", "");
 
-                                                return (
-                                                    <SyntaxHighlighter language={language} style={vscDarkPlus} wrapLongLines={true}>
-                                                        {children}
-                                                    </SyntaxHighlighter>
-                                                );
-                                            },
-                                            a: ({ href, children }) => (
-                                                <SuperLink href={href} variant="inherit" target="_blank">{children}</SuperLink>
-                                            ),
-                                            p: ({ children }) => (
-                                                <Typography variant="body1" component="p" align="center" gutterBottom>{children}</Typography>
-                                            ),
-                                            h1: ({ children }) => (
-                                                <Typography variant="h2" component="h1" align="center" gutterBottom>{children}</Typography>
-                                            ),
-                                            h2: ({ children }) => (
-                                                <Typography variant="h3" component="h2" align="center" gutterBottom>{children}</Typography>
-                                            ),
-                                            h3: ({ children }) => (
-                                                <Typography variant="h5" component="h3" align="center" gutterBottom>{children}</Typography>
-                                            )
-                                        }}
-                                        className={classes.root}
-                                    >
-                                        {READMEData.content}
-                                    </ReactMarkdown>
-                                </Suspense>
+                                            return (
+                                                <SyntaxHighlighter language={language}>
+                                                    {children}
+                                                </SyntaxHighlighter>
+                                            );
+                                        },
+                                        a: ({ href, children }) => (
+                                            <SuperLink href={href} variant="inherit" target="_blank">{children}</SuperLink>
+                                        ),
+                                        p: ({ children }) => (
+                                            <Typography variant="body1" component="p" align="center" gutterBottom>{children}</Typography>
+                                        ),
+                                        h1: ({ children }) => (
+                                            <Typography variant="h2" component="h1" align="center" gutterBottom>{children}</Typography>
+                                        ),
+                                        h2: ({ children }) => (
+                                            <Typography variant="h3" component="h2" align="center" gutterBottom>{children}</Typography>
+                                        ),
+                                        h3: ({ children }) => (
+                                            <Typography variant="h5" component="h3" align="center" gutterBottom>{children}</Typography>
+                                        )
+                                    }}
+                                    className={classes.root}
+                                >
+                                    {READMEData.content}
+                                </ReactMarkdown>
                             </Grid>
                         </Dialog>
                     </Grid>

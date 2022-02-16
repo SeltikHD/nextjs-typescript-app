@@ -1,9 +1,12 @@
 import { IconButton, Theme, Tooltip, Slide, useMediaQuery } from '@mui/material';
-import MUIDialog from '@mui/material/Dialog';
 import CloseIcon from '@mui/icons-material/Close';
 import { makeStyles } from '@mui/styles';
-import { forwardRef, ReactElement, ReactNode, Ref } from 'react';
-import { TransitionProps } from '@mui/material/transitions';
+import type { ReactElement, ReactNode, Ref } from 'react';
+import { forwardRef } from 'react';
+import type { TransitionProps } from '@mui/material/transitions';
+import dynamic from 'next/dynamic';
+
+const MUIDialog = dynamic(() => import('@mui/material/Dialog'), {/* loading: () => <CircularProgress disableShrink />,*/ ssr: false });
 
 type Props = {
     open: boolean;

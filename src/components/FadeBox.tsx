@@ -1,5 +1,6 @@
 import Fade from './Fade';
-import { Children, isValidElement, ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import { Children, isValidElement } from 'react';
 
 type Props = {
     children: ReactNode;
@@ -7,7 +8,7 @@ type Props = {
 
 export default function FadeBox({ children }: Props) {
     const fadeChildren = Children.map(children, (child: ReactNode) => {
-        if(isValidElement(child) && child.props.className.match("fade") == "fade") {
+        if (isValidElement(child) && child.props.className.match("fade") == "fade") {
             return (<Fade>{child}</Fade>);
         }
 
