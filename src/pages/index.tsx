@@ -1,17 +1,18 @@
-import { Button, Grid, Theme, Typography } from '@mui/material';
+import { Button, CircularProgress, Grid, Theme, Typography } from '@mui/material';
 import TextSnippetIcon from '@mui/icons-material/TextSnippet';
 import Layout from 'components/Layout';
 import { InferGetStaticPropsType } from 'next';
 import { getMDContent } from 'utils/utils';
-import ReactMarkdown from 'react-markdown';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus } from "react-syntax-highlighter/dist/cjs/styles/prism";
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import Dialog from 'components/Dialog';
 import { makeStyles } from '@mui/styles';
 import { grey } from '@mui/material/colors';
 import FadeBox from 'components/FadeBox';
 import SuperLink from 'components/SuperLink';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+
+const ReactMarkdown = lazy(() => import('react-markdown'));
+const SyntaxHighlighter = lazy(() => import('../components/Lazy/SyntaxHighlighter'));
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -49,37 +50,39 @@ export default function Page({ READMEData }: InferGetStaticPropsType<typeof getS
                         <Button variant="contained" startIcon={<TextSnippetIcon />} onClick={() => setReadMeOpen(true)} size="large" sx={{ backgroundColor: '#7e00fc', color: '#fff' }}>View Read Me</Button>
                         <Dialog open={readMeOpen} onClose={() => setReadMeOpen(false)}>
                             <Grid container flexDirection="column">
-                                <ReactMarkdown
-                                    components={{
-                                        code: ({ className, children }) => {
-                                            const language = className?.replace("language-", "");
+                                <Suspense fallback={<CircularProgress disableShrink />}>
+                                    <ReactMarkdown
+                                        components={{
+                                            code: ({ className, children }) => {
+                                                const language = className?.replace("language-", "");
 
-                                            return (
-                                                <SyntaxHighlighter language={language} style={vscDarkPlus} wrapLongLines={true}>
-                                                    {children}
-                                                </SyntaxHighlighter>
-                                            );
-                                        },
-                                        a: ({ href, children }) => (
-                                            <SuperLink href={href} variant="inherit" target="_blank">{children}</SuperLink>
-                                        ),
-                                        p: ({ children }) => (
-                                            <Typography variant="body1" component="p" align="center" gutterBottom>{children}</Typography>
-                                        ),
-                                        h1: ({ children }) => (
-                                            <Typography variant="h2" component="h1" align="center" gutterBottom>{children}</Typography>
-                                        ),
-                                        h2: ({ children }) => (
-                                            <Typography variant="h3" component="h2" align="center" gutterBottom>{children}</Typography>
-                                        ),
-                                        h3: ({ children }) => (
-                                            <Typography variant="h5" component="h3" align="center" gutterBottom>{children}</Typography>
-                                        )
-                                    }}
-                                    className={classes.root}
-                                >
-                                    {READMEData.content}
-                                </ReactMarkdown>
+                                                return (
+                                                    <SyntaxHighlighter language={language} style={vscDarkPlus} wrapLongLines={true}>
+                                                        {children}
+                                                    </SyntaxHighlighter>
+                                                );
+                                            },
+                                            a: ({ href, children }) => (
+                                                <SuperLink href={href} variant="inherit" target="_blank">{children}</SuperLink>
+                                            ),
+                                            p: ({ children }) => (
+                                                <Typography variant="body1" component="p" align="center" gutterBottom>{children}</Typography>
+                                            ),
+                                            h1: ({ children }) => (
+                                                <Typography variant="h2" component="h1" align="center" gutterBottom>{children}</Typography>
+                                            ),
+                                            h2: ({ children }) => (
+                                                <Typography variant="h3" component="h2" align="center" gutterBottom>{children}</Typography>
+                                            ),
+                                            h3: ({ children }) => (
+                                                <Typography variant="h5" component="h3" align="center" gutterBottom>{children}</Typography>
+                                            )
+                                        }}
+                                        className={classes.root}
+                                    >
+                                        {READMEData.content}
+                                    </ReactMarkdown>
+                                </Suspense>
                             </Grid>
                         </Dialog>
                     </Grid>

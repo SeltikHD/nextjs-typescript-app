@@ -124,3 +124,4 @@ package-lock.json
 #Sitemap files
 **/public/sitemap.xml
 **/public/sitemap-*.xml
+**/public/robots.txt
