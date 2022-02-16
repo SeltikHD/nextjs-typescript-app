@@ -6,9 +6,8 @@ import { useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import { grey } from '@mui/material/colors';
 import dynamic from 'next/dynamic';
-import { lazy } from 'react';
+import ReactMarkdown from 'react-markdown';
 
-const ReactMarkdown = lazy(() => import('react-markdown'));
 const SyntaxHighlighter = dynamic(() => import('../components/Lazy/SyntaxHighlighter'), { loading: () => <CircularProgress disableShrink />, ssr: false });
 const TextSnippetIcon = dynamic(() => import('@mui/icons-material/TextSnippet'), { ssr: false });
 const SuperLink = dynamic(() => import('../components/SuperLink'), { ssr: false });
