@@ -1,6 +1,6 @@
 {
-    "name": "nextjs-typescript-app",
-    "version": "2.0.4",
+    "name": "website",
+    "version": "2.0.5",
     "private": true,
     "description": "This is a template that uses Next.js with TypeScript, MUI v5, Prisma and some other very useful dependencies.",
     "repository": {
