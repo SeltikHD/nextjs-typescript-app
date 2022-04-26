@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./",
+        "paths": {
+			"@components/*": ["./src/components/*"],
+			"@lib/*": ["./src/lib/*"],
+			"@styles/*": ["./src/styles/*"],
+			"@public/*": ["./public/*"],
+			"@data/*": ["./data/*"],
+			"@themes/*": ["./src/themes/*"],
+            "@utils/*": ["./src/utils/*"],
+            "@types/*": ["./src/types/*"],
+            "@services/*": ["./src/services/*"],
+			"lib": ["../../packages/lib/"],
+			"ui": ["../../packages/ui/"],
+			"config": ["../../packages/config/"]
+		}
+    },
+	"typeRoot": "./src/types/",
+	"rootDir": "src",
+	"extends": "../../packages/tsconfig/nextjs.json",
+	"include": ["types.d.ts", "**/*.ts", "**/*.tsx", "../../packages/ui/StatusBar.tsx"],
+	"exclude": ["node_modules"]
+}
