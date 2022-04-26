@@ -50,13 +50,17 @@ export default NextAuth({
         //   },
         // }),
         Auth0Provider({
+            // @ts-ignore
             clientId: process.env.AUTH0_ID,
+            // @ts-ignore
             clientSecret: process.env.AUTH0_SECRET,
             // @ts-ignore
             domain: process.env.AUTH0_DOMAIN,
         }),
         FacebookProvider({
+            // @ts-ignore
             clientId: process.env.FACEBOOK_ID,
+            // @ts-ignore
             clientSecret: process.env.FACEBOOK_SECRET,
         }),
         GithubProvider({
@@ -67,11 +71,15 @@ export default NextAuth({
             scope: 'read:user',
         }),
         GoogleProvider({
+            // @ts-ignore
             clientId: process.env.GOOGLE_ID,
+            // @ts-ignore
             clientSecret: process.env.GOOGLE_SECRET,
         }),
         TwitterProvider({
+            // @ts-ignore
             clientId: process.env.TWITTER_ID,
+            // @ts-ignore
             clientSecret: process.env.TWITTER_SECRET,
         }),
     ],
