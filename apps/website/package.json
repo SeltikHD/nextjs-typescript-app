@@ -1,22 +1,18 @@
 {
-    "name": "breaks.js",
-    "version": "0.0.1",
+    "name": "nextjs-typescript-app",
+    "version": "2.0.1",
     "private": true,
-    "description": "Breaks.JS is a complete builder for Mobile, Web and Desktop applications with our preferred technologies in NodeJS, using the simple concept of Breaks.",
+    "description": "This is a template that uses Next.js with TypeScript, MUI v5, Prisma and some other very useful dependencies.",
     "repository": {
         "type": "git",
-        "url": "https://github.com/BreaksJS/breaks.js.git"
+        "url": "https://github.com/SeltikHD/nextjs-typescript-app.git"
     },
     "bugs": {
-        "url": "https://github.com/BreaksJS/breaks.js.git/issues"
+        "url": "https://github.com/SeltikHD/nextjs-typescript-app/issues"
     },
-    "homepage": "https://github.com/BreaksJS/breaks.js.git",
-    "main": "src/pages/index.tsx",
+    "homepage": "https://github.com/SeltikHD/nextjs-typescript-app",
     "author": "SeltikHD",
     "license": "ISC",
-    "engines": {
-        "yarn": "1.x"
-    },
     "scripts": {
         "dev": "next dev",
         "start": "next start",

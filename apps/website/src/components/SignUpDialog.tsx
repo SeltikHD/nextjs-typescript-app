@@ -1,5 +1,5 @@
-import Dialog from './Dialog';
-import SignUpForm from './SignUpForm';
+import Dialog from '@components/Dialog';
+import SignUpForm from '@components/SignUpForm';
 
 type Props = {
     open: boolean;

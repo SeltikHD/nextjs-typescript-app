@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import SuperLink from '../SuperLink';
+import SuperLink from '@components/SuperLink';
 import { grey } from '@mui/material/colors';
 
 function Copyright() {

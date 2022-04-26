@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { signOut } from 'next-auth/react';
 import { useLocalStorage } from "react-use";
 import { userAvatar } from '@utils/avatar';
-import SignUpDialog from '../SignUpDialog';
+import SignUpDialog from '@components/SignUpDialog';
 import useDarkMode from 'use-dark-mode';
 import dynamic from 'next/dynamic';
 import SuperLink from '@components/SuperLink';

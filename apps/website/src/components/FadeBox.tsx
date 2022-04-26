@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import Fade from './Fade';
+import Fade from '@components/Fade';
 import { Children, isValidElement, useState, useRef } from 'react';
 import { useLocalStorage } from 'react-use';
 

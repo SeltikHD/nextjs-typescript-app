@@ -3,7 +3,7 @@ import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { Typography } from "@mui/material";
 import type { ReactMarkdownOptions } from 'react-markdown/lib/react-markdown';
 import ReactMarkdown from "react-markdown";
-import SuperLink from "./SuperLink";
+import SuperLink from "@components/SuperLink";
 
 export default function ReadMe({ ...props }: ReactMarkdownOptions) {
     return (

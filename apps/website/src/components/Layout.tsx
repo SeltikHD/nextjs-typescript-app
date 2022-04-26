@@ -1,21 +1,21 @@
 import type { ReactNode } from 'react';
-import type { SchemaProps } from './configs/Schema';
-import type { MetatagsProps } from './configs/Metatags';
+import type { SchemaProps } from '@components/configs/Schema';
+import type { MetatagsProps } from '@components/configs/Metatags';
 import type { Session } from 'next-auth';
 import type { Role } from '@prisma/client';
 import type { NextRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { Loading } from './ui/Loading';
+import { Loading } from '@components/UI/Loading';
 import dynamic from 'next/dynamic';
-import Metatags from './configs/Metatags';
-import Schema from './configs/Schema';
+import Metatags from '@components/configs/Metatags';
+import Schema from '@components/configs/Schema';
 import options from "@data/seo.json";
-const StatusBar = dynamic(() => import('./ui/StatusBar'), {/* loading: () => <CircularProgress disableShrink />,*/ ssr: false });
+const StatusBar = dynamic(() => import('@components/UI/StatusBar'), {/* loading: () => <CircularProgress disableShrink />,*/ ssr: false });
 const Box = dynamic(() => import('@mui/material/Box'), {/* loading: () => <CircularProgress disableShrink />,*/ ssr: false });
-const Footer = dynamic(() => import('./ui/MainFooter'), {/* loading: () => <CircularProgress disableShrink />,*/ ssr: false });
-const Header = dynamic(() => import('./ui/MainHeader'), {/* loading: () => <CircularProgress disableShrink />,*/ ssr: false });
+const Footer = dynamic(() => import('@components/UI/MainFooter'), {/* loading: () => <CircularProgress disableShrink />,*/ ssr: false });
+const Header = dynamic(() => import('@components/UI/MainHeader'), {/* loading: () => <CircularProgress disableShrink />,*/ ssr: false });
 
 interface AuthProps {
     blockUnauthorized?: boolean;
