@@ -1,68 +1,48 @@
-import { Button, CircularProgress, Grid, Theme, Typography } from '@mui/material';
-import Layout from '@components/Layout';
-import { InferGetStaticPropsType } from 'next';
+import type { InferGetStaticPropsType } from 'next/types';
+import { Button, Grid, Typography } from '@mui/material';
 import { getMDContent } from '@utils/utils';
 import { useState } from 'react';
+import FadeBox from '@components/FadeBox';
+import Layout from '@components/Layout';
+import useStyles from '@styles/mainIndex';
 import dynamic from 'next/dynamic';
-import ReactMarkdown from 'react-markdown';
 
-const SyntaxHighlighter = dynamic(() => import('@components/Lazy/SyntaxHighlighter'), { loading: () => <CircularProgress disableShrink />, ssr: false });
 const TextSnippetIcon = dynamic(() => import('@mui/icons-material/TextSnippet'), { ssr: false });
-const SuperLink = dynamic(() => import('@components/SuperLink'), { ssr: false });
-const FadeBox = dynamic(() => import('@components/FadeBox'), { ssr: false });
-const Dialog = dynamic(() => import('@components/Dialog'), { ssr: false });
+const Dialog = dynamic(() => import('@mui/material/Dialog'), { ssr: false });
+const ReadMe = dynamic(() => import('@components/ReadMe'), { ssr: false });
 
 export default function Page({ READMEData }: InferGetStaticPropsType<typeof getStaticProps>) {
-    const [readMeOpen, setReadMeOpen] = useState(false);
     const classes = useStyles();
+    const [readMeOpen, setReadMeOpen] = useState(false);
 
     return (
         <Layout>
-            <Grid container flexDirection="column">
-                <FadeBox>
-                    <Grid item component="main" className={`${classes.bgPrimary} fade`} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '80vh', padding: '2em' }}>
-                        <Typography variant="h2" component="h1" align="center" gutterBottom>
-                            A basic (but very useful) template.
-                        </Typography>
-                        <Typography variant="h5" component="h2" align="center" paragraph>
-                            This template uses Next JS, MUI v5, Prisma, TypeScript and some other very useful dependencies, as shown in the section below.
-                        </Typography>
-                        <Button variant="contained" startIcon={<TextSnippetIcon />} onClick={() => setReadMeOpen(true)} size="large" sx={{ backgroundColor: '#7e00fc', color: '#fff' }}>View Read Me</Button>
-                        <Dialog open={readMeOpen} onClose={() => setReadMeOpen(false)}>
-                            <Grid container flexDirection="column">
-                                <ReactMarkdown
-                                    components={{
-                                        code: ({ className, children }) => {
-                                            const language = className?.replace("language-", "");
-
-                                            return (
-                                                <SyntaxHighlighter language={language}>
-                                                    {children}
-                                                </SyntaxHighlighter>
-                                            );
-                                        },
-                                        a: ({ href, children }) => (
-                                            <SuperLink href={href} variant="inherit" target="_blank">{children}</SuperLink>
-                                        ),
-                                        p: ({ children }) => (
-                                            <Typography variant="body1" component="p" align="center" gutterBottom>{children}</Typography>
-                                        ),
-                                        h1: ({ children }) => (
-                                            <Typography variant="h2" component="h1" align="center" gutterBottom>{children}</Typography>
-                                        ),
-                                        h2: ({ children }) => (
-                                            <Typography variant="h3" component="h2" align="center" gutterBottom>{children}</Typography>
-                                        ),
-                                        h3: ({ children }) => (
-                                            <Typography variant="h5" component="h3" align="center" gutterBottom>{children}</Typography>
-                                        )
-                                    }}
-                                    className={classes.root}
-                                >
-                                    {READMEData.content}
-                                </ReactMarkdown>
-                            </Grid>
-                        </Dialog>
+            <Grid container flexDirection="column" sx={{ backgroungColor: '#000' }}>
+                <FadeBox delay={1000} all>
+                    <Grid item component="main" className={`fade?delay=0&translateY=30; ${classes.bgMain}`} id="main"
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            minHeight: '70vh',
+                            padding: '2em',
+                        }}
+                    >
+                        <FadeBox delay={500} all>
+                            <Typography variant="h2" component="h1" align="center" gutterBottom>
+                                A basic (but very useful) template.
+                            </Typography>
+                            <Typography variant="h5" component="h2" align="center" paragraph>
+                                This template uses Next JS, MUI v5, Prisma, TypeScript and some other very useful dependencies, as shown in the section below.
+                            </Typography>
+                            <Button variant="contained" startIcon={<TextSnippetIcon />} onClick={() => setReadMeOpen(true)} size="large" sx={{ backgroundColor: '#7e00fc', color: '#fff' }}>View Read Me</Button>
+                            <Dialog open={readMeOpen} onClose={() => setReadMeOpen(false)}>
+                                <Grid container flexDirection="column">
+                                    <ReadMe className={classes.root}>{READMEData.content}</ReadMe>
+                                </Grid>
+                            </Dialog>
+                        </FadeBox>
                     </Grid>
                 </FadeBox>
             </Grid>
@@ -71,7 +51,7 @@ export default function Page({ READMEData }: InferGetStaticPropsType<typeof getS
 }
 
 export async function getStaticProps() {
-    const READMEData = await getMDContent('README.md');
+    const READMEData = await getMDContent('http://localhost:3000/README.md', true);
 
     return {
         props: {

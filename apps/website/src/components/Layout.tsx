@@ -7,15 +7,15 @@ import type { NextRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { Loading } from './UI/Loading';
+import { Loading } from './ui/Loading';
 import dynamic from 'next/dynamic';
 import Metatags from './configs/Metatags';
 import Schema from './configs/Schema';
 import options from "@data/seo.json";
-const StatusBar = dynamic(() => import('./UI/StatusBar'), {/* loading: () => <CircularProgress disableShrink />,*/ ssr: false });
-const Box = dynamic(() => import('@mUI/material/Box'), {/* loading: () => <CircularProgress disableShrink />,*/ ssr: false });
-const Footer = dynamic(() => import('./UI/MainFooter'), {/* loading: () => <CircularProgress disableShrink />,*/ ssr: false });
-const Header = dynamic(() => import('./UI/MainHeader'), {/* loading: () => <CircularProgress disableShrink />,*/ ssr: false });
+const StatusBar = dynamic(() => import('./ui/StatusBar'), {/* loading: () => <CircularProgress disableShrink />,*/ ssr: false });
+const Box = dynamic(() => import('@mui/material/Box'), {/* loading: () => <CircularProgress disableShrink />,*/ ssr: false });
+const Footer = dynamic(() => import('./ui/MainFooter'), {/* loading: () => <CircularProgress disableShrink />,*/ ssr: false });
+const Header = dynamic(() => import('./ui/MainHeader'), {/* loading: () => <CircularProgress disableShrink />,*/ ssr: false });
 
 interface AuthProps {
     blockUnauthorized?: boolean;

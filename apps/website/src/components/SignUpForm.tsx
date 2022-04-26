@@ -65,7 +65,7 @@ function EmailForm({ onClose }: Props) {
                     required: 'Email necessário',
                     pattern: {
                         value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i,
-                        message: 'Por favor, coloque um email válido',
+                        message: 'Invalid Email',
                     },
                 }}
                 render={({ field: { onChange, value }, fieldState: { error } }) => (
@@ -82,10 +82,10 @@ function EmailForm({ onClose }: Props) {
             />
             <div>
                 <Button variant="contained" onClick={onClose}>
-                    Cancelar
+                    Cancel
                 </Button>
                 <Button type="submit" variant="contained">
-                    Entrar
+                    Login
                 </Button>
             </div>
         </form>

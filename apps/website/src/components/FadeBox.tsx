@@ -39,7 +39,7 @@ function extractFadeProps(className: string, fadeProps: string[]) {
 
 export default function FadeBox({ children, delay = 0, all }: Props) {
     const [fadeI, setFadeI] = useState(0);
-    const [animations] = useLocalStorage<boolean>('animations');
+    const [animations] = useLocalStorage<boolean>('animations') ?? true;
     const active = useRef(animations);
 
     const fadeChildren = Children.map(children, (child: ReactNode, i) => {

@@ -16,6 +16,7 @@ After running these commands, run:
 
 ```bash
 cd your-folder-app
+yarn install
 yarn prepare
 ```
 

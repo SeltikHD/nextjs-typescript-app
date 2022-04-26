@@ -324,7 +324,7 @@ export default function MainHeader({ customDrawer, session, loadingSession }: Pr
                         noWrap
                         component="div"
                     >
-                        Breaks.JS
+                        Title
                     </Typography>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>

@@ -1,4 +1,4 @@
-import type { DefaultSession } from "next-auth";
+import type NextAuth, { DefaultSession } from "next-auth";
 import type { Role } from '@prisma/client';
 
 /** Example on how to extend the built-in session types */
