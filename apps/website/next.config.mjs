@@ -4,7 +4,6 @@
 import withPWA from 'next-pwa';
 import withPlugins from 'next-compose-plugins';
 import nextTranspileModules from 'next-transpile-modules';
-import withPreact from 'next-plugin-preact';
 
 //Next Config
 const nextConfig = {
@@ -28,6 +27,20 @@ const nextConfig = {
     },
     experimental: {
         outputStandalone: true,
+    },
+    webpack: (config) => {
+        config.module.rules.push({
+            test: /\.md$/,
+            use: 'raw-loader',
+        });
+        config.module.rules.push({
+            test: /\.svg$/,
+            use: ['@svgr/webpack', 'url-loader'],
+        });
+        config.experiments = {
+            topLevelAwait: true
+        }
+        return config;
     }
 };
 
@@ -44,4 +57,4 @@ const pwa = withPWA({
 //Libs
 const withLibs = nextTranspileModules(['lib']);
 
-export default withPlugins([withLibs, pwa, withPreact], nextConfig);
+export default withPlugins([withLibs, pwa], nextConfig);

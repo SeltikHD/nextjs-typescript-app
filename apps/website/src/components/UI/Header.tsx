@@ -1,26 +1,39 @@
-import { AppBar, Button, Tooltip, Box, Toolbar, IconButton, Typography, Badge, MenuItem, Menu, Avatar, Drawer, Divider, List, ListItem, ListItemIcon, ListItemText, Grid, styled, Switch } from '@mui/material';
 import type { SwitchProps } from '@mui/material/Switch';
 import type { ReactNode } from 'react';
 import type { Session } from 'next-auth';
+import { AppBar, Box, Toolbar, Typography, Avatar, Drawer, Grid, styled, Switch, IconButton } from '@mui/material';
 import { useState } from 'react';
 import { signOut } from 'next-auth/react';
 import { useLocalStorage } from "react-use";
+import { useRouter } from 'next/router';
 import { userAvatar } from '@utils/avatar';
 import SignUpDialog from '@components/SignUpDialog';
 import useDarkMode from 'use-dark-mode';
 import dynamic from 'next/dynamic';
+
 import SuperLink from '@components/SuperLink';
 
-const MenuIcon = dynamic(() => import('@mui/icons-material/Menu'), { ssr: false });
-const AccountCircle = dynamic(() => import('@mui/icons-material/AccountCircle'), { ssr: false });
-const NotificationsIcon = dynamic(() => import('@mui/icons-material/Notifications'), { ssr: false });
-const MoreIcon = dynamic(() => import('@mui/icons-material/MoreVert'), { ssr: false });
-const SettingsIcon = dynamic(() => import('@mui/icons-material/Settings'), { ssr: false });
-const InboxIcon = dynamic(() => import('@mui/icons-material/Inbox'), { ssr: false });
-const MailIcon = dynamic(() => import('@mui/icons-material/Mail'), { ssr: false });
-const DeleteIcon = dynamic(() => import('@mui/icons-material/Delete'), { ssr: false });
+const Button = dynamic(() => import('@mui/material/Button'));
+const Tooltip = dynamic(() => import('@mui/material/Tooltip'));
+const Menu = dynamic(() => import('@mui/material/Menu'));
+const MenuItem = dynamic(() => import('@mui/material/MenuItem'));
+const Divider = dynamic(() => import('@mui/material/Divider'));
 
-const DarkModeSwitch = styled(Switch)(({ theme }) => ({
+const List = dynamic(() => import('@mui/material/List'));
+const ListItem = dynamic(() => import('@mui/material/ListItem'));
+const ListItemButton = dynamic(() => import('@mui/material/ListItemButton'));
+const ListItemIcon = dynamic(() => import('@mui/material/ListItemIcon'));
+const ListItemText = dynamic(() => import('@mui/material/ListItemText'));
+
+const MenuIcon = dynamic(() => import('@mui/icons-material/Menu'));
+const AccountCircle = dynamic(() => import('@mui/icons-material/AccountCircle'));
+const MoreIcon = dynamic(() => import('@mui/icons-material/MoreVert'));
+const SettingsIcon = dynamic(() => import('@mui/icons-material/Settings'));
+const FolderIcon = dynamic(() => import('@mui/icons-material/Folder'));
+const CloudIcon = dynamic(() => import('@mui/icons-material/Cloud'));
+const HomeIcon = dynamic(() => import('@mui/icons-material/Home'));
+
+export const DarkModeSwitch = styled(Switch)(({ theme }) => ({
     width: 62,
     height: 34,
     padding: 7,
@@ -67,7 +80,7 @@ const DarkModeSwitch = styled(Switch)(({ theme }) => ({
     },
 }));
 
-const CheckedSwitch = styled((props: SwitchProps) => (<Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />))(({ theme }) => ({
+export const CheckedSwitch = styled((props: SwitchProps) => (<Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />))(({ theme }) => ({
     width: 42,
     height: 26,
     padding: 0,
@@ -152,26 +165,23 @@ type Props = {
 export default function MainHeader({ customDrawer, session, loadingSession }: Props) {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState<null | HTMLElement>(null);
-    const [notificationsNumber/*, setNotificationsNumber*/] = useState<number>(0);
     const [openSignIn, setOpenSignIn] = useState<boolean>(false);
     const [openDrawer, setOpenDrawer] = useState<boolean>(false);
     const [openSettings, setOpenSettings] = useState<boolean>(false);
-    const [authorized, setAuthorized] = useState<boolean>(false);
-    const authenticated = (session != undefined && session != null);
-    const darkMode = useDarkMode();
-
-    if (authenticated) {
-        setAuthorized(true);
-    }
+    const [authorized, setAuthorized] = useState<boolean>((session != undefined && session != null));
 
     const drawerWidth = '25%';
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-    const [animations, updateAnimations] = useLocalStorage<boolean>('animations');
-
-    const handleAnimations = () => updateAnimations(!animations);
+    const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+        if (!authorized) {
+            handleOpenSignIn();
+        } else {
+            setAnchorEl(event.currentTarget);
+        }
+    };
 
     const handleOpenSignIn = () => {
         setOpenSignIn(true);
@@ -195,14 +205,6 @@ export default function MainHeader({ customDrawer, session, loadingSession }: Pr
 
     const handleCloseSettings = () => {
         setOpenSettings(false);
-    };
-
-    const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-        if (!authorized) {
-            handleOpenSignIn();
-        } else {
-            setAnchorEl(event.currentTarget);
-        }
     };
 
     const handleMobileMenuClose = () => {
@@ -235,9 +237,9 @@ export default function MainHeader({ customDrawer, session, loadingSession }: Pr
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}><SuperLink href="/account" color='inherit'>My account</SuperLink></MenuItem>
-            <MenuItem onClick={async () => { handleMenuClose(); await signOut(); setAuthorized(false); }}>Exit</MenuItem>
+            <MenuItem onClick={handleMenuClose}>Perfil</MenuItem>
+            <MenuItem onClick={handleMenuClose}><SuperLink href="/account" color='inherit'>Minha conta</SuperLink></MenuItem>
+            <MenuItem onClick={async () => { handleMenuClose(); await signOut(); setAuthorized(false); }}>Sair</MenuItem>
         </Menu>
     );
 
@@ -258,20 +260,6 @@ export default function MainHeader({ customDrawer, session, loadingSession }: Pr
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
-            {authorized ?
-                <MenuItem>
-                    <IconButton
-                        size="large"
-                        aria-label={`show ${notificationsNumber} new notifications`}
-                        color="inherit"
-                    >
-                        <Badge badgeContent={notificationsNumber} color="error">
-                            <NotificationsIcon />
-                        </Badge>
-                    </IconButton>
-                    <p>Notifications</p>
-                </MenuItem>
-                : null}
             <MenuItem onClick={() => { handleMobileMenuClose(); handleOpenSettings(); }}>
                 <IconButton
                     size="large"
@@ -284,7 +272,7 @@ export default function MainHeader({ customDrawer, session, loadingSession }: Pr
                 </IconButton>
                 <p>Settings</p>
             </MenuItem>
-            {!loadingSession ?
+            {!loadingSession &&
                 <MenuItem onClick={handleProfileMenuOpen}>
                     <IconButton
                         size="large"
@@ -300,13 +288,12 @@ export default function MainHeader({ customDrawer, session, loadingSession }: Pr
                         }
                     </IconButton>
                     <p>Profile</p>
-                </MenuItem>
-                : null}
+                </MenuItem>}
         </Menu>
     );
 
     return (
-        <Box component="header" sx={{ flexGrow: 1 }}>
+        <>
             <AppBar position="absolute" /*enableColorOnDark*/ sx={{ position: 'fixed', zIndex: 3 }}>
                 <Toolbar sx={{ backgroundColor: '#000' }}>
                     <IconButton
@@ -324,39 +311,25 @@ export default function MainHeader({ customDrawer, session, loadingSession }: Pr
                         noWrap
                         component="div"
                     >
-                        Title
+                        Painel de Administração
                     </Typography>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         {!loadingSession ?
                             authorized ?
-                                <>
-                                    <Tooltip title="Notifications" arrow>
-                                        <IconButton
-                                            size="large"
-                                            aria-label={`show ${notificationsNumber} new notifications`}
-                                            color="inherit"
-                                            sx={{ borderRadius: 3, marginRight: 2 }}
-                                        >
-                                            <Badge badgeContent={notificationsNumber} color="error">
-                                                <NotificationsIcon />
-                                            </Badge>
-                                        </IconButton>
-                                    </Tooltip>
-                                    <Tooltip title="Account" arrow>
-                                        <IconButton
-                                            size="large"
-                                            aria-label="account of current user"
-                                            aria-controls={menuId}
-                                            aria-haspopup="true"
-                                            onClick={handleProfileMenuOpen}
-                                            color="inherit"
-                                            sx={{ marginLeft: 2, padding: 0, order: '1' }}
-                                        >
-                                            <Avatar {...userAvatar({ name: session?.user?.name, icon: session?.user?.image })} />
-                                        </IconButton>
-                                    </Tooltip>
-                                </>
+                                <Tooltip title="Conta" arrow>
+                                    <IconButton
+                                        size="large"
+                                        aria-label="account of current user"
+                                        aria-controls={menuId}
+                                        aria-haspopup="true"
+                                        onClick={handleProfileMenuOpen}
+                                        color="inherit"
+                                        sx={{ marginLeft: 2, padding: 0, order: '1' }}
+                                    >
+                                        <Avatar {...userAvatar({ name: session?.user?.name, icon: session?.user?.image })} />
+                                    </IconButton>
+                                </Tooltip>
                                 :
                                 <Tooltip title="Entrar" arrow>
                                     <IconButton
@@ -372,7 +345,7 @@ export default function MainHeader({ customDrawer, session, loadingSession }: Pr
                                     </IconButton>
                                 </Tooltip>
                             : null}
-                        <Tooltip title="Settings" arrow>
+                        <Tooltip title="Configurações" arrow>
                             <IconButton
                                 size="large"
                                 aria-label="settings of the page"
@@ -399,82 +372,119 @@ export default function MainHeader({ customDrawer, session, loadingSession }: Pr
                             <MoreIcon />
                         </IconButton>
                     </Box>
-                    <TemporaryDrawer open={openSettings} handleClose={handleCloseSettings} width={drawerWidth} anchor="right">
-                        <Toolbar>
-                            <Typography variant="h5" component="h1" noWrap flexGrow={1} textAlign="center">Settings</Typography>
-                        </Toolbar>
-                        <Divider />
-                        <Grid
-                            container
-                            direction="column"
-                            justifyContent="space-between"
-                            alignItems="center"
-                            spacing={2}
-                        >
-                            <Grid item sx={{ marginTop: 3 }}>
-                                <Typography variant="h6" component="h1" noWrap>Theme</Typography>
-                            </Grid>
-                            <Grid item>
-                                <DarkModeSwitch checked={darkMode.value} onChange={darkMode.toggle} />
-                            </Grid>
-                            <Grid item sx={{ marginTop: 3 }}>
-                                <Typography variant="h6" component="h1" noWrap>Animations</Typography>
-                            </Grid>
-                            <Grid item>
-                                <CheckedSwitch checked={animations} onChange={() => handleAnimations()} defaultChecked />
-                            </Grid>
-                        </Grid>
-                    </TemporaryDrawer>
-                    <TemporaryDrawer open={openDrawer} handleClose={handleCloseDrawer} width={drawerWidth}>
-                        {customDrawer ? customDrawer :
-                            <>
-                                {!loadingSession ?
-                                    <Toolbar>
-                                        <Grid container>
-                                            {authorized ?
-                                                <Grid item xs={12} sx={{ display: 'flex', overflow: 'hidden', cursor: 'pointer' }} onClick={handleProfileMenuOpen}>
-                                                    <Avatar {...userAvatar({ name: session?.user?.name, icon: session?.user?.image })} />
-                                                    <Typography sx={{ marginLeft: 1 }} variant="h6" component="h2" noWrap>{session?.user?.name}</Typography>
-                                                </Grid>
-                                                :
-                                                <Grid item xs={12} sx={{ display: 'flex', cursor: 'pointer' }}>
-                                                    <Button sx={{ width: '100%' }} variant='outlined' startIcon={<AccountCircle />} onClick={handleProfileMenuOpen}>
-                                                        Entrar
-                                                    </Button>
-                                                </Grid>}
-                                        </Grid>
-                                    </Toolbar>
-                                    : null}
-                                <Divider />
-                                <List>
-                                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                                        <ListItem button key={text}>
-                                            <ListItemIcon>
-                                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                                            </ListItemIcon>
-                                            <ListItemText primary={text} />
-                                        </ListItem>
-                                    ))}
-                                </List>
-                                <Divider />
-                                <List>
-                                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                                        <ListItem button key={text}>
-                                            <ListItemIcon>
-                                                {index % 2 === 0 ? <InboxIcon /> : <DeleteIcon />}
-                                            </ListItemIcon>
-                                            <ListItemText primary={text} />
-                                        </ListItem>
-                                    ))}
-                                </List>
-                            </>
-                        }
-                    </TemporaryDrawer>
+                    <SettingsDrawer open={openSettings} handleClose={handleCloseSettings} width={drawerWidth} />
+                    {customDrawer ? customDrawer : <OptionsDrawer open={openDrawer} handleClose={handleCloseDrawer} width={drawerWidth} handleProfileMenuOpen={handleProfileMenuOpen} session={session} />}
                     <SignUpDialog open={openSignIn} onClose={handleCloseSignIn} />
-                </Toolbar >
+                </Toolbar>
             </AppBar >
             {renderMobileMenu}
             {renderMenu}
-        </Box >
+        </>
+    );
+}
+
+export interface OptionsDrawerProps {
+    open: boolean;
+    handleClose: () => void;
+    handleProfileMenuOpen?: (event: React.MouseEvent<HTMLElement>) => void;
+    width: string | number;
+    session: Session | null;
+}
+
+export const OptionsDrawer = ({ open, handleClose, handleProfileMenuOpen, width, session }: OptionsDrawerProps) => {
+    const router = useRouter();
+    const authorized = session?.user !== undefined;
+
+    return (
+        <TemporaryDrawer open={open} handleClose={handleClose} width={width.toString()}>
+            <>
+                <Toolbar>
+                    <Grid container>
+                        {authorized ?
+                            <Grid item xs={12} sx={{ display: 'flex', overflow: 'hidden', cursor: 'pointer' }} onClick={handleProfileMenuOpen} alignItems='center'>
+                                <Avatar {...userAvatar({ name: session?.user?.name, icon: session?.user?.image, width: 48, height: 48 })} />
+                                <Typography sx={{ marginLeft: 1 }} variant="h6" component="h2" noWrap>{session?.user?.name}</Typography>
+                            </Grid>
+                            :
+                            <Grid item xs={12} sx={{ display: 'flex', cursor: 'pointer' }}>
+                                <Button sx={{ width: '100%' }} variant='outlined' startIcon={<AccountCircle />} onClick={handleProfileMenuOpen}>
+                                    Entrar
+                                </Button>
+                            </Grid>}
+                    </Grid>
+                </Toolbar>
+                <Divider />
+                <List>
+                    <ListItem disablePadding>
+                        <ListItemButton onClick={() => router.push('/')}>
+                            <ListItemIcon>
+                                <HomeIcon />
+                            </ListItemIcon>
+                            <ListItemText primary='Home' secondary='Página inicial' />
+                        </ListItemButton>
+                    </ListItem>
+                    <Divider />
+                    <ListItem disablePadding>
+                        <ListItemButton onClick={() => router.push('/files/')}>
+                            <ListItemIcon>
+                                <FolderIcon sx={{ color: '#FFDB75' }} />
+                            </ListItemIcon>
+                            <ListItemText primary='File Explorer' secondary='Gerenciador de arquivos' />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton onClick={() => router.push('/dbmanager/node/')}>
+                            <ListItemIcon>
+                                <CloudIcon />
+                            </ListItemIcon>
+                            <ListItemText primary='DB Manager - NodeJS' secondary='Painel CMS para o banco de dados NodeJS' />
+                        </ListItemButton>
+                    </ListItem>
+                    <Divider />
+                </List>
+            </>
+        </TemporaryDrawer>
+    );
+}
+
+export interface SettingsDrawerProps {
+    open: boolean;
+    handleClose: () => void;
+    width: string | number;
+}
+
+export const SettingsDrawer = ({ open, handleClose, width }: SettingsDrawerProps) => {
+    const darkMode = useDarkMode();
+    const [animations, updateAnimations] = useLocalStorage<boolean>('animations');
+
+    const handleAnimations = () => updateAnimations(!animations);
+
+    return (
+        <TemporaryDrawer open={open} handleClose={handleClose} width={width.toString()} anchor="right">
+            <Toolbar>
+                <Typography variant="h5" component="h1" noWrap flexGrow={1} textAlign="center">Configurações</Typography>
+            </Toolbar>
+            <Divider />
+            <Grid
+                container
+                direction="column"
+                justifyContent="space-between"
+                alignItems="center"
+                spacing={2}
+            >
+                <Grid item sx={{ marginTop: 3 }}>
+                    <Typography variant="h6" component="h1" noWrap>Tema</Typography>
+                </Grid>
+                <Grid item>
+                    <DarkModeSwitch checked={darkMode.value} onChange={darkMode.toggle} />
+                </Grid>
+                <Grid item sx={{ marginTop: 3 }}>
+                    <Typography variant="h6" component="h1" noWrap>Animações</Typography>
+                </Grid>
+                <Grid item>
+                    <CheckedSwitch checked={animations ?? true} onChange={() => handleAnimations()} />
+                </Grid>
+            </Grid>
+        </TemporaryDrawer>
     );
 }

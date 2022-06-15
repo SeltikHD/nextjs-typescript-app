@@ -1,18 +1,20 @@
+import type { ReactElement, ReactNode, Ref } from 'react';
+import type { TransitionProps } from '@mui/material/transitions';
+import type { SxProps, Theme } from '@mui/material';
 import { IconButton, Tooltip, Slide, useMediaQuery } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { forwardRef } from 'react';
 import dynamic from 'next/dynamic';
-import type { Theme } from '@mui/material';
-import type { ReactElement, ReactNode, Ref } from 'react';
-import type { TransitionProps } from '@mui/material/transitions';
 
-const MUIDialog = dynamic(() => import('@mui/material/Dialog'), {/* loading: () => <CircularProgress disableShrink />,*/ ssr: false });
-const CloseIcon = dynamic(() => import('@mui/icons-material/Close'), {/* loading: () => <CircularProgress disableShrink />,*/ ssr: false });
+const MUIDialog = dynamic(() => import('@mui/material/Dialog'));
+const CloseIcon = dynamic(() => import('@mui/icons-material/Close'));
 
-type Props = {
+export type DialogProps = {
     open: boolean;
     onClose: () => void | undefined;
     children: ReactNode;
+    fullScreen?: boolean;
+    sx?: SxProps<Theme>;
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -32,12 +34,12 @@ const Transition = forwardRef(function Transition(
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function Dialog({ open, onClose, children }: Props) {
+export default function Dialog({ open, onClose, children, fullScreen, sx }: DialogProps) {
     const classes = useStyles();
-    const fullScreen = useMediaQuery('(max-width:600px)');
+    const fullScreenMediaQuery = useMediaQuery('(max-width:600px)');
 
     return (
-        <MUIDialog fullScreen={fullScreen} open={open} onClose={onClose} TransitionComponent={Transition}>
+        <MUIDialog fullScreen={fullScreen ?? fullScreenMediaQuery} open={open} onClose={onClose} TransitionComponent={Transition} sx={sx}>
             <Tooltip title="Fechar" arrow>
                 <IconButton
                     size="small"

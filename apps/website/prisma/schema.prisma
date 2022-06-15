@@ -14,17 +14,17 @@ model Account {
   type               String
   provider           String
   providerAccountId  String   @map("provider_account_id")
-  refresh_token      String?
-  access_token       String?
+  refresh_token      String?  @db.Text
+  access_token       String?  @db.Text
   expires_at         Int?
   token_type         String?
   scope              String?
-  id_token           String?
+  id_token           String?  @db.Text
   session_state      String?
   oauth_token_secret String?
   oauth_token        String?
   createdAt          DateTime @default(now()) @map("created_at")
-  updatedAt          DateTime @default(now()) @map("updated_at")
+  updatedAt          DateTime @updatedAt @map("updated_at")
   user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
@@ -37,24 +37,25 @@ model Session {
   userId       String   @map("user_id")
   expires      DateTime
   createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @default(now()) @map("updated_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("sessions")
 }
 
 model User {
-  id            String    @id @default(cuid())
-  username      String?   @unique
-  role          Role      @default(USER)
+  id            String    @id @default(cuid()) /// prisma-reader:{alias: "Id"}
+  username      String?   @unique /// prisma-reader:{alias: "Nome de usuário"}
+  roleId        String?   @map("role_id")
   name          String?
   email         String?   @unique
   emailVerified DateTime? @map("email_verified")
   image         String?
   createdAt     DateTime  @default(now()) @map("created_at")
-  updatedAt     DateTime  @default(now()) @map("updated_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
   accounts      Account[]
   sessions      Session[]
+  role          Role?     @relation(fields: [roleId], references: [id], onDelete: Cascade)
 
   @@map("users")
 }
@@ -64,13 +65,35 @@ model VerificationToken {
   token      String   @unique
   expires    DateTime
   createdAt  DateTime @default(now()) @map("created_at")
-  updatedAt  DateTime @default(now()) @map("updated_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
 
   @@unique([identifier, token])
-  @@map("verificationtokens")
+  @@map("verificationTokens")
 }
 
-enum Role {
-  USER
-  ADMIN
+model Role {
+  id          String        @id @default(cuid())
+  name        String        @unique
+  permissions Permissions[]
+  createdAt   DateTime      @default(now()) @map("created_at")
+  updatedAt   DateTime      @updatedAt @map("updated_at")
+
+  users User[]
+  @@map("roles")
+}
+
+enum Permissions {
+  READ
+  WRITE
+  DELETE
+  CREATE
+  UPDATE
+  DELETE_OWN
+  CREATE_OWN
+  UPDATE_OWN
+  DELETE_DB
+  CREATE_DB
+  UPDATE_DB
+
+  @@map("permissions")
 }

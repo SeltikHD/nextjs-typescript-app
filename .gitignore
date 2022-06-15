@@ -121,7 +121,15 @@ package-lock.json
 **/public/workbox-*.js.map
 **/public/worker-*.js.map
 
-#Sitemap files
+#   Sitemap files
 **/public/sitemap.xml
 **/public/sitemap-*.xml
 **/public/robots.txt
+
+# Turborepo files
+.turbo
+build/**
+dist/**
+
+# Graphql files
+**/generated

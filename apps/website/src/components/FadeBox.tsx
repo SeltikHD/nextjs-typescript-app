@@ -1,22 +1,18 @@
 import type { ReactNode } from 'react';
-import Fade from '@components/Fade';
-import { Children, isValidElement, useState, useRef } from 'react';
+import { Children, isValidElement, cloneElement } from 'react';
 import { useLocalStorage } from 'react-use';
 
-type Props = {
+interface FadeBoxProps extends FadeProps {
     children: ReactNode;
-    delay?: number;
     all?: boolean;
-};
+    component?: ReactNode;
+}
 
 const fadePropsDefault = [
-    'component',
-    'sx',
-    'yOffset',
-    'delay',
-    'vanishingTransition',
-    'appearingTransition',
-    'translateY'
+    'animation',
+    'duration',
+    'offset',
+    'disabled'
 ];
 
 function extractFadeProps(className: string, fadeProps: string[]) {
@@ -35,23 +31,41 @@ function extractFadeProps(className: string, fadeProps: string[]) {
 
         return processedFadePropsArray.reduce((acc, fadeProp) => ({ ...acc, ...fadeProp }), {});
     }
+
+    return {};
 }
 
-export default function FadeBox({ children, delay = 0, all }: Props) {
-    const [fadeI, setFadeI] = useState(0);
+export default function FadeBox({ children, all, component = <></>, ...props }: FadeBoxProps) {
     const [animations] = useLocalStorage<boolean>('animations') ?? true;
-    const active = useRef(animations);
 
-    const fadeChildren = Children.map(children, (child: ReactNode, i) => {
-        if (isValidElement(child) && ((child.props?.className?.includes("fade") || all) && !child.props?.className?.includes("skip")) && active.current) {
+    const fadeChildren = Children.map(children, (child) => {
+        if (isValidElement(child) && ((child.props?.className?.includes("fade") || all) && !child.props?.className?.includes("skip")) && animations) {
             const className: string = child.props.className;
             const customProps = className ? extractFadeProps(className, fadePropsDefault) : {};
 
-            return (<Fade delay={delay} {...customProps} fading={fadeI == i} afterDelay={() => setFadeI(i + 1)}>{child}</Fade>);
+            return (<Fade {...props} {...customProps}>{child}</Fade>);
         }
 
-        return <Fade delay={delay} fading={fadeI == i} afterDelay={() => setFadeI(i + 1)} disabled>{child}</Fade>;
+        return <Fade {...props} disabled>{child}</Fade>;
     });
 
+    if (component && isValidElement(component)) {
+        return cloneElement(component, { children: fadeChildren });
+    }
+
     return <>{fadeChildren}</>;
+}
+
+interface FadeProps {
+    disabled?: boolean;
+    animation?: 'fade' | 'fade-up' | 'fade-down' | 'fade-left' | 'fade-right' | 'fade-up-right' | 'fade-up-left' | 'fade-down-right' | 'fade-down-left';
+    duration?: number;
+    offset?: number;
+    delay?: number;
+}
+
+function Fade({ children, disabled, animation = 'fade-up', duration = 800, offset, delay }: { children: ReactNode } & FadeProps) {
+    if (disabled) return <>{children}</>;
+
+    return isValidElement(children) ? cloneElement(children, { 'data-aos': animation, 'data-aos-duration': duration?.toString(), 'data-aos-offset': offset?.toString(), 'data-aos-delay': delay?.toString() }) : <div data-aos={animation} data-aos-duration={duration?.toString()} data-aos-offset={offset?.toString()} data-aos-delay={delay?.toString()}>{children}</div>;
 }

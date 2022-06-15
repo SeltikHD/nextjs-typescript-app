@@ -3,7 +3,7 @@ import { Button, Grid, Typography } from '@mui/material';
 import { getMDContent } from '@utils/utils';
 import { useState } from 'react';
 import FadeBox from '@components/FadeBox';
-import Layout from '@components/Layout';
+import Layout from '@components/UI/Layout';
 import useStyles from '@styles/mainIndex';
 import dynamic from 'next/dynamic';
 
@@ -14,6 +14,7 @@ const ReadMe = dynamic(() => import('@components/ReadMe'), { ssr: false });
 export default function Page({ READMEData }: InferGetStaticPropsType<typeof getStaticProps>) {
     const classes = useStyles();
     const [readMeOpen, setReadMeOpen] = useState(false);
+    console.log(READMEData.content);
 
     return (
         <Layout>
@@ -51,7 +52,7 @@ export default function Page({ READMEData }: InferGetStaticPropsType<typeof getS
 }
 
 export async function getStaticProps() {
-    const READMEData = await getMDContent('http://localhost:3000/README.md', true);
+    const READMEData = await getMDContent('README');
 
     return {
         props: {
