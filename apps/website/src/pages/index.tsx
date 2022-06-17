@@ -14,7 +14,6 @@ const ReadMe = dynamic(() => import('@components/ReadMe'), { ssr: false });
 export default function Page({ READMEData }: InferGetStaticPropsType<typeof getStaticProps>) {
     const classes = useStyles();
     const [readMeOpen, setReadMeOpen] = useState(false);
-    console.log(READMEData.content);
 
     return (
         <Layout>

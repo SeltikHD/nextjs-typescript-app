@@ -14,6 +14,7 @@ export default function ReadMe({ ...props }: ReactMarkdownOptions) {
 
                     return (
                         <SyntaxHighlighter style={vscDarkPlus} wrapLongLines={true} language={language}>
+                            //@ts-ignore
                             {children}
                         </SyntaxHighlighter>
                     );
