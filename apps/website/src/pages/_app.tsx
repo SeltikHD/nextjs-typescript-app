@@ -1,20 +1,19 @@
-import { SessionProvider } from "next-auth/react";
+import { SessionProvider } from 'next-auth/react';
 import { Theme, ThemeProvider } from '@mui/material/styles';
-import { useEffect, useLayoutEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useEffect, useLayoutEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
-import type { Session } from "next-auth";
+import type { Session } from 'next-auth';
 
-import { CacheProvider, EmotionCache } from "@emotion/react";
-import createEmotionCache from "@utils/createEmotionCache";
+import { CacheProvider, EmotionCache } from '@emotion/react';
+import createEmotionCache from '@utils/createEmotionCache';
 
-import type { Dispatch, ReactNode, SetStateAction } from "react";
+import type { Dispatch, ReactNode, SetStateAction } from 'react';
 import type { AppProps } from 'next/app';
 
 import CssBaseline from '@mui/material/CssBaseline';
 import getTheme from '@themes/Theme';
 import useDarkMode from 'use-dark-mode';
-import Script from "next/script";
 
 import NProgress from 'nprogress';
 import '../../public/nprogress.css';
@@ -26,7 +25,11 @@ import '@fontsource/roboto/700.css';
 
 const clientSideEmotionCache = createEmotionCache();
 
-export default function App({ Component, emotionCache = clientSideEmotionCache, pageProps: { session, ...pageProps } }: AppProps) {
+export default function App({
+    Component,
+    emotionCache = clientSideEmotionCache,
+    pageProps: { session, ...pageProps },
+}: AppProps) {
     const [theme, setTheme] = useState<Theme>(getTheme('dark'));
     const [hydrated, setHydrated] = useState(false);
     const router = useRouter();
@@ -34,20 +37,20 @@ export default function App({ Component, emotionCache = clientSideEmotionCache, 
     useEffect(() => {
         const handleStart = () => {
             NProgress.start();
-        }
+        };
         const handleStop = () => {
             NProgress.done();
-        }
+        };
 
-        router.events.on('routeChangeStart', handleStart)
-        router.events.on('routeChangeComplete', handleStop)
-        router.events.on('routeChangeError', handleStop)
+        router.events.on('routeChangeStart', handleStart);
+        router.events.on('routeChangeComplete', handleStop);
+        router.events.on('routeChangeError', handleStop);
 
         return () => {
-            router.events.off('routeChangeStart', handleStart)
-            router.events.off('routeChangeComplete', handleStop)
-            router.events.off('routeChangeError', handleStop)
-        }
+            router.events.off('routeChangeStart', handleStart);
+            router.events.off('routeChangeComplete', handleStop);
+            router.events.off('routeChangeError', handleStop);
+        };
     }, [router]);
 
     useEffect(() => {
@@ -77,7 +80,7 @@ function ColorThemeProvider({ children, theme, setTheme }: ColorThemeProviderPro
         if (theme.palette.mode != mode) setTheme(getTheme(mode));
     }, [darkMode.value, setTheme, theme.palette.mode]);
 
-    return (<>{children}</>);
+    return <>{children}</>;
 }
 
 interface ProvidersProps extends ColorThemeProviderProps {
@@ -93,7 +96,6 @@ function Providers({ children, session, emotionCache, theme, ...props }: Provide
             <CacheProvider value={emotionCache}>
                 <ThemeProvider theme={theme}>
                     <CssBaseline />
-                    <Script src="noflash.js" strategy="beforeInteractive" />
                     <ColorThemeProvider theme={theme} {...props}>
                         {children}
                     </ColorThemeProvider>

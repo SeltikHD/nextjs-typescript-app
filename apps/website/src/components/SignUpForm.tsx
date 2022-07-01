@@ -49,7 +49,7 @@ function EmailForm({ onClose }: Props) {
     const classes = useStyles();
     const { control, handleSubmit } = useForm();
 
-    const onSubmit = handleSubmit((data) => {
+    const onSubmit = handleSubmit(data => {
         signIn('email', { redirect: false, email: data.email });
         if (onClose) {
             onClose();
@@ -65,7 +65,7 @@ function EmailForm({ onClose }: Props) {
                 rules={{
                     required: 'Email necessário',
                     pattern: {
-                        value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i,
+                        value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/i,
                         message: 'Invalid Email',
                     },
                 }}
@@ -116,7 +116,7 @@ export default function SignUpForm({ onClose }: Props) {
 
     const loginOptions = (
         <Box className={classes.root}>
-            {providers.map((provider) => (
+            {providers.map(provider => (
                 <Button
                     className={classes.providerButton}
                     variant="contained"

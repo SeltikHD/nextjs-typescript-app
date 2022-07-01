@@ -28,7 +28,7 @@ const nextConfig = {
     experimental: {
         outputStandalone: true,
     },
-    webpack: (config) => {
+    webpack: config => {
         config.module.rules.push({
             test: /\.md$/,
             use: 'raw-loader',
@@ -38,10 +38,10 @@ const nextConfig = {
             use: ['@svgr/webpack', 'url-loader'],
         });
         config.experiments = {
-            topLevelAwait: true
-        }
+            topLevelAwait: true,
+        };
         return config;
-    }
+    },
 };
 
 //PWA

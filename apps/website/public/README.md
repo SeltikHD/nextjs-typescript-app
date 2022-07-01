@@ -26,21 +26,21 @@ This template comes with a custom React hook [use-dark-mode](https://www.npmjs.c
 
 ### Also included
 
-- [Axios](https://www.npmjs.com/package/axios)
-- [React If](https://www.npmjs.com/package/react-if)
-- [React Hook Form](https://www.npmjs.com/package/react-hook-form)
+-   [Axios](https://www.npmjs.com/package/axios)
+-   [React If](https://www.npmjs.com/package/react-if)
+-   [React Hook Form](https://www.npmjs.com/package/react-hook-form)
 
 ### Other dev dependencies
 
-- [Lint Staged](https://www.npmjs.com/package/lint-staged)
-- [Next Sitemap (To use this dependency, delete 'src/pages/sitemap.xml.ts')](https://www.npmjs.com/package/next-sitemap)
+-   [Lint Staged](https://www.npmjs.com/package/lint-staged)
+-   [Next Sitemap (To use this dependency, delete 'src/pages/sitemap.xml.ts')](https://www.npmjs.com/package/next-sitemap)
 
 ### Others that are also included, but you decide if they are needed for your project
 
-- [Gray Matter](https://www.npmjs.com/package/gray-matter)
-- [Nodemailer (required for NextAuth email sign in)](https://www.npmjs.com/package/nodemailer)
-- [React Markdown](https://www.npmjs.com/package/react-markdown)
-- [React Syntax Highlighter](https://www.npmjs.com/package/react-syntax-highlighter)
+-   [Gray Matter](https://www.npmjs.com/package/gray-matter)
+-   [Nodemailer (required for NextAuth email sign in)](https://www.npmjs.com/package/nodemailer)
+-   [React Markdown](https://www.npmjs.com/package/react-markdown)
+-   [React Syntax Highlighter](https://www.npmjs.com/package/react-syntax-highlighter)
 
 **All dependencies are already pre-configured**, to change the settings, look at the wiki of each dependency.
 

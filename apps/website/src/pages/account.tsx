@@ -15,7 +15,7 @@ export default function Account() {
     const [edit, setEdit] = useState(false);
 
     return (
-        <Layout auth={{ blockUnauthorized: true, setSession: (s) => setSession(s) }}>
+        <Layout auth={{ blockUnauthorized: true, setSession: s => setSession(s) }}>
             <Grid container flexDirection="row">
                 <Grid
                     item
@@ -31,8 +31,19 @@ export default function Account() {
                     lg={8}
                 >
                     <FadeBox all>
-                        {session?.user?.image ? <Avatar {...userAvatar({ name: session?.user?.name, icon: session?.user?.image, width: 256, height: 256 })} /> : null}
-                        <Typography component='h1' variant='h3' mt={3} noWrap>{session?.user.name}</Typography>
+                        {session?.user?.image ? (
+                            <Avatar
+                                {...userAvatar({
+                                    name: session?.user?.name,
+                                    icon: session?.user?.image,
+                                    width: 256,
+                                    height: 256,
+                                })}
+                            />
+                        ) : null}
+                        <Typography component="h1" variant="h3" mt={3} noWrap>
+                            {session?.user.name}
+                        </Typography>
                     </FadeBox>
                 </Grid>
                 <Grid
@@ -53,11 +64,35 @@ export default function Account() {
                         padding="2em"
                     >
                         <FadeBox all>
-                            {session?.user?.image ? <Avatar {...userAvatar({ name: session?.user?.name, icon: session?.user?.image, width: 256, height: 256 })} /> : null}
-                            <Typography component='h1' variant='h3' mt={3} noWrap>{session?.user.name}</Typography>
-                            {session?.user.username ? <Typography component='h1' variant='h5' noWrap>@{session?.user.username}</Typography> : null}
-                            {session?.user.email ? <Typography component='h1' variant='h4' mt={3} noWrap sx={{ color: '#A0A3A2' }}>{session?.user.email}</Typography> : null}
-                            {session?.user.role && session?.user.role != 'USER' ? <Typography component='h1' variant='h4' mt={3} noWrap sx={{ color: '#FFF56D' }}>{session?.user.role?.charAt(0).toUpperCase() + session?.user.role?.slice(1).toLowerCase()}</Typography> : null}
+                            {session?.user?.image ? (
+                                <Avatar
+                                    {...userAvatar({
+                                        name: session?.user?.name,
+                                        icon: session?.user?.image,
+                                        width: 256,
+                                        height: 256,
+                                    })}
+                                />
+                            ) : null}
+                            <Typography component="h1" variant="h3" mt={3} noWrap>
+                                {session?.user.name}
+                            </Typography>
+                            {session?.user.username ? (
+                                <Typography component="h1" variant="h5" noWrap>
+                                    @{session?.user.username}
+                                </Typography>
+                            ) : null}
+                            {session?.user.email ? (
+                                <Typography component="h1" variant="h4" mt={3} noWrap sx={{ color: '#A0A3A2' }}>
+                                    {session?.user.email}
+                                </Typography>
+                            ) : null}
+                            {session?.user.role && session?.user.role != 'USER' ? (
+                                <Typography component="h1" variant="h4" mt={3} noWrap sx={{ color: '#FFF56D' }}>
+                                    {session?.user.role?.charAt(0).toUpperCase() +
+                                        session?.user.role?.slice(1).toLowerCase()}
+                                </Typography>
+                            ) : null}
                             <Button
                                 variant="contained"
                                 endIcon={<EditIcon />}

@@ -18,7 +18,9 @@
     let localStorageTheme = null;
     try {
         localStorageTheme = localStorage.getItem(storageKey);
-    } catch (err) {}
+    } catch (err) {
+        console.error(err);
+    }
     const localStorageExists = localStorageTheme !== null;
     if (localStorageExists) {
         localStorageTheme = JSON.parse(localStorageTheme);

@@ -21,8 +21,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     closeButton: {
         position: 'absolute',
         right: theme.spacing(1 / 10),
-        top: theme.spacing(1 / 10)
-    }
+        top: theme.spacing(1 / 10),
+    },
 }));
 
 const Transition = forwardRef(function Transition(
@@ -39,7 +39,13 @@ export default function Dialog({ open, onClose, children, fullScreen, sx }: Dial
     const fullScreenMediaQuery = useMediaQuery('(max-width:600px)');
 
     return (
-        <MUIDialog fullScreen={fullScreen ?? fullScreenMediaQuery} open={open} onClose={onClose} TransitionComponent={Transition} sx={sx}>
+        <MUIDialog
+            fullScreen={fullScreen ?? fullScreenMediaQuery}
+            open={open}
+            onClose={onClose}
+            TransitionComponent={Transition}
+            sx={sx}
+        >
             <Tooltip title="Fechar" arrow>
                 <IconButton
                     size="small"

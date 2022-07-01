@@ -19,7 +19,11 @@ export default function Page({ READMEData }: InferGetStaticPropsType<typeof getS
         <Layout>
             <Grid container flexDirection="column" sx={{ backgroungColor: '#000' }}>
                 <FadeBox delay={1000} all>
-                    <Grid item component="main" className={`fade?delay=0&translateY=30; ${classes.bgMain}`} id="main"
+                    <Grid
+                        item
+                        component="main"
+                        className={`fade?delay=0&translateY=30; ${classes.bgMain}`}
+                        id="main"
                         sx={{
                             display: 'flex',
                             flexDirection: 'column',
@@ -34,9 +38,18 @@ export default function Page({ READMEData }: InferGetStaticPropsType<typeof getS
                                 A basic (but very useful) template.
                             </Typography>
                             <Typography variant="h5" component="h2" align="center" paragraph>
-                                This template uses Next JS, MUI v5, Prisma, TypeScript and some other very useful dependencies, as shown in the section below.
+                                This template uses Next JS, MUI v5, Prisma, TypeScript and some other very useful
+                                dependencies, as shown in the section below.
                             </Typography>
-                            <Button variant="contained" startIcon={<TextSnippetIcon />} onClick={() => setReadMeOpen(true)} size="large" sx={{ backgroundColor: '#7e00fc', color: '#fff' }}>View Read Me</Button>
+                            <Button
+                                variant="contained"
+                                startIcon={<TextSnippetIcon />}
+                                onClick={() => setReadMeOpen(true)}
+                                size="large"
+                                sx={{ backgroundColor: '#7e00fc', color: '#fff' }}
+                            >
+                                View Read Me
+                            </Button>
                             <Dialog open={readMeOpen} onClose={() => setReadMeOpen(false)}>
                                 <Grid container flexDirection="column">
                                     <ReadMe className={classes.root}>{READMEData.content}</ReadMe>
@@ -55,7 +68,7 @@ export async function getStaticProps() {
 
     return {
         props: {
-            READMEData
-        }
-    }
+            READMEData,
+        },
+    };
 }

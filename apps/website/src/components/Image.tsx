@@ -1,5 +1,5 @@
-import { Box } from "@mui/material";
-import Head from "next/head";
+import { Box } from '@mui/material';
+import Head from 'next/head';
 import NextImage from 'next/image';
 
 interface StaticImageData {
@@ -24,16 +24,24 @@ type Props = {
     src: string | StaticImport;
     imgFilter?: boolean;
     preload?: boolean;
-}
+};
 
-export default function Image({ width = 100, height = 100, alt = "Image.", src, imgFilter = false, preload = false }: Props) {
+export default function Image({
+    width = 100,
+    height = 100,
+    alt = 'Image.',
+    src,
+    imgFilter = false,
+    preload = false,
+}: Props) {
     return (
-        <Box component="section"
+        <Box
+            component="section"
             sx={{
-                position: "relative",
-                overflow: "hidden",
+                position: 'relative',
+                overflow: 'hidden',
                 width,
-                height
+                height,
             }}
         >
             {preload ? (
@@ -42,13 +50,15 @@ export default function Image({ width = 100, height = 100, alt = "Image.", src, 
                 </Head>
             ) : null}
             <NextImage src={src} alt={alt} width={width} height={height} layout="responsive" objectFit="cover" />
-            {imgFilter ? (<Box
-                sx={{
-                    position: "absolute",
-                    inset: 0,
-                    backgroundColor: "rgba(0,0,0, .2)"
-                }}
-            />) : null}
+            {imgFilter ? (
+                <Box
+                    sx={{
+                        position: 'absolute',
+                        inset: 0,
+                        backgroundColor: 'rgba(0,0,0, .2)',
+                    }}
+                />
+            ) : null}
         </Box>
     );
 }

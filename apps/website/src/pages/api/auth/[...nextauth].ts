@@ -152,13 +152,16 @@ export default NextAuth({
             return token;
         },
         session: async ({ session, user }) => {
-            const data = await prisma.user.findUnique({ where: { id: user.id }, select: { username: true, role: true } });
+            const data = await prisma.user.findUnique({
+                where: { id: user.id },
+                select: { username: true, role: true },
+            });
 
             session.user.id = user.id;
             session.user.username = data?.username;
             session.user.role = data?.role;
             return session;
-        }
+        },
     },
 
     // Events are useful for logging

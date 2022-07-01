@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head';
 
 export interface SchemaProps {
-	siteName?: string;
-	description?: string;
-	inLanguage?: string;
-	title?: string;
-	siteDescription?: string;
+    siteName?: string;
+    description?: string;
+    inLanguage?: string;
+    title?: string;
+    siteDescription?: string;
 }
 
 /**
@@ -15,21 +15,22 @@ export interface SchemaProps {
  * @constructor
  */
 export default function Schema({ siteName, description, siteDescription, inLanguage, title }: SchemaProps) {
-	const [currentUrl, setCurrentUrl] = useState('');
-	const [origin, setOrigin] = useState('');
+    const [currentUrl, setCurrentUrl] = useState('');
+    const [origin, setOrigin] = useState('');
 
-	useEffect(() => {
-		if (window.location.origin !== origin) {
-			setOrigin(window.location.origin)
-		}
+    useEffect(() => {
+        if (window.location.origin !== origin) {
+            setOrigin(window.location.origin);
+        }
 
-		if (window.location.href !== currentUrl) {
-			setCurrentUrl(origin + encodeURIComponent(window.location.pathname))
-		}
-	}, [currentUrl, origin]);
+        if (window.location.href !== currentUrl) {
+            setCurrentUrl(origin + encodeURIComponent(window.location.pathname));
+        }
+    }, [currentUrl, origin]);
 
-	const webPage = currentUrl !== `${origin}/`
-			? `, {
+    const webPage =
+        currentUrl !== `${origin}/`
+            ? `, {
 				"@type": "WebPage",
 				"@id": "${currentUrl}#webpage",
 				"url": "${currentUrl}",
@@ -43,12 +44,12 @@ export default function Schema({ siteName, description, siteDescription, inLangu
 				},
 				"inLanguage": "${inLanguage}"
 			}`
-			: '';
+            : '';
 
-	return (
-		<Head>
-			<script type="application/ld+json">
-				{`{
+    return (
+        <Head>
+            <script type="application/ld+json">
+                {`{
 					"@context": "https://schema.org",
 					"@graph": [
 						{
@@ -61,7 +62,7 @@ export default function Schema({ siteName, description, siteDescription, inLangu
 						}${webPage}
 					]
 				}`}
-			</script>
-		</Head>
-	);
+            </script>
+        </Head>
+    );
 }

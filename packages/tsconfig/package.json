@@ -1,11 +1,11 @@
 {
-	"name": "tsconfig",
-	"version": "1.0.7",
-	"author": "Jos Broers",
-	"license": "MIT",
-	"files": [
-		"base.json",
-		"nextjs.json",
-		"react-library.json"
-	]
+    "name": "tsconfig",
+    "version": "1.0.7",
+    "author": "Jos Broers",
+    "license": "MIT",
+    "files": [
+        "base.json",
+        "nextjs.json",
+        "react-library.json"
+    ]
 }

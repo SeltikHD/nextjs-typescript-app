@@ -76,14 +76,14 @@ let darkTheme = createTheme({
             styleOverrides: {
                 ...baseTheme.components?.MuiButton?.styleOverrides,
                 contained: {
-                    ...baseTheme.components?.MuiButton?.styleOverrides?.contained as Record<string, unknown>,
+                    ...(baseTheme.components?.MuiButton?.styleOverrides?.contained as Record<string, unknown>),
                     '&:hover': {
                         backgroundColor: alpha(basePallete.palette.primary.main, 1),
                     },
                 },
             },
         },
-    }
+    },
 });
 
 let lightTheme = createTheme({

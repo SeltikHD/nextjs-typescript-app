@@ -4,7 +4,7 @@ import type { Session } from 'next-auth';
 import { AppBar, Box, Toolbar, Typography, Avatar, Drawer, Grid, styled, Switch, IconButton } from '@mui/material';
 import { useState } from 'react';
 import { signOut } from 'next-auth/react';
-import { useLocalStorage } from "react-use";
+import { useLocalStorage } from 'react-use';
 import { useRouter } from 'next/router';
 import { userAvatar } from '@utils/avatar';
 import SignUpDialog from '@components/SignUpDialog';
@@ -80,7 +80,9 @@ export const DarkModeSwitch = styled(Switch)(({ theme }) => ({
     },
 }));
 
-export const CheckedSwitch = styled((props: SwitchProps) => (<Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />))(({ theme }) => ({
+export const CheckedSwitch = styled((props: SwitchProps) => (
+    <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
+))(({ theme }) => ({
     width: 42,
     height: 26,
     padding: 0,
@@ -105,10 +107,7 @@ export const CheckedSwitch = styled((props: SwitchProps) => (<Switch focusVisibl
             border: '6px solid #fff',
         },
         '&.Mui-disabled .MuiSwitch-thumb': {
-            color:
-                theme.palette.mode === 'light'
-                    ? theme.palette.grey[100]
-                    : theme.palette.grey[600],
+            color: theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.grey[600],
         },
         '&.Mui-disabled + .MuiSwitch-track': {
             opacity: theme.palette.mode === 'light' ? 0.7 : 0.3,
@@ -134,25 +133,25 @@ type HeadDrawerProps = {
     open: boolean;
     handleClose: () => void | null;
     width: string;
-    anchor?: "left" | "bottom" | "right" | "top";
-}
+    anchor?: 'left' | 'bottom' | 'right' | 'top';
+};
 
-export function TemporaryDrawer({ children, open, handleClose, width, anchor = "left" }: HeadDrawerProps) {
+export function TemporaryDrawer({ children, open, handleClose, width, anchor = 'left' }: HeadDrawerProps) {
     return (
         <Drawer
             variant="temporary"
             open={open}
             onClose={handleClose}
             ModalProps={{
-                keepMounted: true
+                keepMounted: true,
             }}
             sx={{
-                '& .MuiDrawer-paper': { boxSizing: 'border-box', width: { xs: 250, md: width } }
+                '& .MuiDrawer-paper': { boxSizing: 'border-box', width: { xs: 250, md: width } },
             }}
             anchor={anchor}
         >
             {children}
-        </Drawer >
+        </Drawer>
     );
 }
 
@@ -160,7 +159,7 @@ type Props = {
     customDrawer?: ReactNode;
     session: Session | null;
     loadingSession: boolean;
-}
+};
 
 export default function MainHeader({ customDrawer, session, loadingSession }: Props) {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -168,7 +167,7 @@ export default function MainHeader({ customDrawer, session, loadingSession }: Pr
     const [openSignIn, setOpenSignIn] = useState<boolean>(false);
     const [openDrawer, setOpenDrawer] = useState<boolean>(false);
     const [openSettings, setOpenSettings] = useState<boolean>(false);
-    const [authorized, setAuthorized] = useState<boolean>((session != undefined && session != null));
+    const [authorized, setAuthorized] = useState<boolean>(session != undefined && session != null);
 
     const drawerWidth = '25%';
 
@@ -238,8 +237,20 @@ export default function MainHeader({ customDrawer, session, loadingSession }: Pr
             onClose={handleMenuClose}
         >
             <MenuItem onClick={handleMenuClose}>Perfil</MenuItem>
-            <MenuItem onClick={handleMenuClose}><SuperLink href="/account" color='inherit'>Minha conta</SuperLink></MenuItem>
-            <MenuItem onClick={async () => { handleMenuClose(); await signOut(); setAuthorized(false); }}>Sair</MenuItem>
+            <MenuItem onClick={handleMenuClose}>
+                <SuperLink href="/account" color="inherit">
+                    Minha conta
+                </SuperLink>
+            </MenuItem>
+            <MenuItem
+                onClick={async () => {
+                    handleMenuClose();
+                    await signOut();
+                    setAuthorized(false);
+                }}
+            >
+                Sair
+            </MenuItem>
         </Menu>
     );
 
@@ -260,7 +271,12 @@ export default function MainHeader({ customDrawer, session, loadingSession }: Pr
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
-            <MenuItem onClick={() => { handleMobileMenuClose(); handleOpenSettings(); }}>
+            <MenuItem
+                onClick={() => {
+                    handleMobileMenuClose();
+                    handleOpenSettings();
+                }}
+            >
                 <IconButton
                     size="large"
                     aria-label="settings of the page"
@@ -272,7 +288,7 @@ export default function MainHeader({ customDrawer, session, loadingSession }: Pr
                 </IconButton>
                 <p>Settings</p>
             </MenuItem>
-            {!loadingSession &&
+            {!loadingSession && (
                 <MenuItem onClick={handleProfileMenuOpen}>
                     <IconButton
                         size="large"
@@ -281,14 +297,22 @@ export default function MainHeader({ customDrawer, session, loadingSession }: Pr
                         aria-haspopup="true"
                         color="inherit"
                     >
-                        {authorized ?
-                            <Avatar {...userAvatar({ name: session?.user?.name, icon: session?.user?.image, width: '2', height: '2' })} />
-                            :
+                        {authorized ? (
+                            <Avatar
+                                {...userAvatar({
+                                    name: session?.user?.name,
+                                    icon: session?.user?.image,
+                                    width: '2',
+                                    height: '2',
+                                })}
+                            />
+                        ) : (
                             <AccountCircle />
-                        }
+                        )}
                     </IconButton>
                     <p>Profile</p>
-                </MenuItem>}
+                </MenuItem>
+            )}
         </Menu>
     );
 
@@ -306,17 +330,13 @@ export default function MainHeader({ customDrawer, session, loadingSession }: Pr
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                    >
+                    <Typography variant="h6" noWrap component="div">
                         Painel de Administração
                     </Typography>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        {!loadingSession ?
-                            authorized ?
+                        {!loadingSession ? (
+                            authorized ? (
                                 <Tooltip title="Conta" arrow>
                                     <IconButton
                                         size="large"
@@ -327,10 +347,12 @@ export default function MainHeader({ customDrawer, session, loadingSession }: Pr
                                         color="inherit"
                                         sx={{ marginLeft: 2, padding: 0, order: '1' }}
                                     >
-                                        <Avatar {...userAvatar({ name: session?.user?.name, icon: session?.user?.image })} />
+                                        <Avatar
+                                            {...userAvatar({ name: session?.user?.name, icon: session?.user?.image })}
+                                        />
                                     </IconButton>
                                 </Tooltip>
-                                :
+                            ) : (
                                 <Tooltip title="Entrar" arrow>
                                     <IconButton
                                         size="large"
@@ -344,7 +366,8 @@ export default function MainHeader({ customDrawer, session, loadingSession }: Pr
                                         <AccountCircle />
                                     </IconButton>
                                 </Tooltip>
-                            : null}
+                            )
+                        ) : null}
                         <Tooltip title="Configurações" arrow>
                             <IconButton
                                 size="large"
@@ -373,10 +396,20 @@ export default function MainHeader({ customDrawer, session, loadingSession }: Pr
                         </IconButton>
                     </Box>
                     <SettingsDrawer open={openSettings} handleClose={handleCloseSettings} width={drawerWidth} />
-                    {customDrawer ? customDrawer : <OptionsDrawer open={openDrawer} handleClose={handleCloseDrawer} width={drawerWidth} handleProfileMenuOpen={handleProfileMenuOpen} session={session} />}
+                    {customDrawer ? (
+                        customDrawer
+                    ) : (
+                        <OptionsDrawer
+                            open={openDrawer}
+                            handleClose={handleCloseDrawer}
+                            width={drawerWidth}
+                            handleProfileMenuOpen={handleProfileMenuOpen}
+                            session={session}
+                        />
+                    )}
                     <SignUpDialog open={openSignIn} onClose={handleCloseSignIn} />
                 </Toolbar>
-            </AppBar >
+            </AppBar>
             {renderMobileMenu}
             {renderMenu}
         </>
@@ -400,17 +433,38 @@ export const OptionsDrawer = ({ open, handleClose, handleProfileMenuOpen, width,
             <>
                 <Toolbar>
                     <Grid container>
-                        {authorized ?
-                            <Grid item xs={12} sx={{ display: 'flex', overflow: 'hidden', cursor: 'pointer' }} onClick={handleProfileMenuOpen} alignItems='center'>
-                                <Avatar {...userAvatar({ name: session?.user?.name, icon: session?.user?.image, width: 48, height: 48 })} />
-                                <Typography sx={{ marginLeft: 1 }} variant="h6" component="h2" noWrap>{session?.user?.name}</Typography>
+                        {authorized ? (
+                            <Grid
+                                item
+                                xs={12}
+                                sx={{ display: 'flex', overflow: 'hidden', cursor: 'pointer' }}
+                                onClick={handleProfileMenuOpen}
+                                alignItems="center"
+                            >
+                                <Avatar
+                                    {...userAvatar({
+                                        name: session?.user?.name,
+                                        icon: session?.user?.image,
+                                        width: 48,
+                                        height: 48,
+                                    })}
+                                />
+                                <Typography sx={{ marginLeft: 1 }} variant="h6" component="h2" noWrap>
+                                    {session?.user?.name}
+                                </Typography>
                             </Grid>
-                            :
+                        ) : (
                             <Grid item xs={12} sx={{ display: 'flex', cursor: 'pointer' }}>
-                                <Button sx={{ width: '100%' }} variant='outlined' startIcon={<AccountCircle />} onClick={handleProfileMenuOpen}>
+                                <Button
+                                    sx={{ width: '100%' }}
+                                    variant="outlined"
+                                    startIcon={<AccountCircle />}
+                                    onClick={handleProfileMenuOpen}
+                                >
                                     Entrar
                                 </Button>
-                            </Grid>}
+                            </Grid>
+                        )}
                     </Grid>
                 </Toolbar>
                 <Divider />
@@ -420,7 +474,7 @@ export const OptionsDrawer = ({ open, handleClose, handleProfileMenuOpen, width,
                             <ListItemIcon>
                                 <HomeIcon />
                             </ListItemIcon>
-                            <ListItemText primary='Home' secondary='Página inicial' />
+                            <ListItemText primary="Home" secondary="Página inicial" />
                         </ListItemButton>
                     </ListItem>
                     <Divider />
@@ -429,7 +483,7 @@ export const OptionsDrawer = ({ open, handleClose, handleProfileMenuOpen, width,
                             <ListItemIcon>
                                 <FolderIcon sx={{ color: '#FFDB75' }} />
                             </ListItemIcon>
-                            <ListItemText primary='File Explorer' secondary='Gerenciador de arquivos' />
+                            <ListItemText primary="File Explorer" secondary="Gerenciador de arquivos" />
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
@@ -437,7 +491,10 @@ export const OptionsDrawer = ({ open, handleClose, handleProfileMenuOpen, width,
                             <ListItemIcon>
                                 <CloudIcon />
                             </ListItemIcon>
-                            <ListItemText primary='DB Manager - NodeJS' secondary='Painel CMS para o banco de dados NodeJS' />
+                            <ListItemText
+                                primary="DB Manager - NodeJS"
+                                secondary="Painel CMS para o banco de dados NodeJS"
+                            />
                         </ListItemButton>
                     </ListItem>
                     <Divider />
@@ -445,7 +502,7 @@ export const OptionsDrawer = ({ open, handleClose, handleProfileMenuOpen, width,
             </>
         </TemporaryDrawer>
     );
-}
+};
 
 export interface SettingsDrawerProps {
     open: boolean;
@@ -462,24 +519,24 @@ export const SettingsDrawer = ({ open, handleClose, width }: SettingsDrawerProps
     return (
         <TemporaryDrawer open={open} handleClose={handleClose} width={width.toString()} anchor="right">
             <Toolbar>
-                <Typography variant="h5" component="h1" noWrap flexGrow={1} textAlign="center">Configurações</Typography>
+                <Typography variant="h5" component="h1" noWrap flexGrow={1} textAlign="center">
+                    Configurações
+                </Typography>
             </Toolbar>
             <Divider />
-            <Grid
-                container
-                direction="column"
-                justifyContent="space-between"
-                alignItems="center"
-                spacing={2}
-            >
+            <Grid container direction="column" justifyContent="space-between" alignItems="center" spacing={2}>
                 <Grid item sx={{ marginTop: 3 }}>
-                    <Typography variant="h6" component="h1" noWrap>Tema</Typography>
+                    <Typography variant="h6" component="h1" noWrap>
+                        Tema
+                    </Typography>
                 </Grid>
                 <Grid item>
                     <DarkModeSwitch checked={darkMode.value} onChange={darkMode.toggle} />
                 </Grid>
                 <Grid item sx={{ marginTop: 3 }}>
-                    <Typography variant="h6" component="h1" noWrap>Animações</Typography>
+                    <Typography variant="h6" component="h1" noWrap>
+                        Animações
+                    </Typography>
                 </Grid>
                 <Grid item>
                     <CheckedSwitch checked={animations ?? true} onChange={() => handleAnimations()} />
@@ -487,4 +544,4 @@ export const SettingsDrawer = ({ open, handleClose, width }: SettingsDrawerProps
             </Grid>
         </TemporaryDrawer>
     );
-}
+};

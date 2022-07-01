@@ -7,20 +7,20 @@ type Props = {
     href?: string;
     text?: string;
     variant?:
-    | 'h1'
-    | 'h2'
-    | 'h3'
-    | 'h4'
-    | 'h5'
-    | 'h6'
-    | 'subtitle1'
-    | 'subtitle2'
-    | 'body1'
-    | 'body2'
-    | 'caption'
-    | 'button'
-    | 'overline'
-    | 'inherit';
+        | 'h1'
+        | 'h2'
+        | 'h3'
+        | 'h4'
+        | 'h5'
+        | 'h6'
+        | 'subtitle1'
+        | 'subtitle2'
+        | 'body1'
+        | 'body2'
+        | 'caption'
+        | 'button'
+        | 'overline'
+        | 'inherit';
     underline?: 'none' | 'hover' | 'always';
     color?: string;
     onClick?: () => void;
@@ -36,11 +36,18 @@ export default function SuperLink({
     underline = 'none',
     color = '#39CCCC',
     onClick,
-    className
+    className,
 }: Props) {
     return (
         <NextLink href={href} passHref>
-            <MUILink variant={variant} underline={underline} color={color} onClick={onClick} target={target} className={className}>
+            <MUILink
+                variant={variant}
+                underline={underline}
+                color={color}
+                onClick={onClick}
+                target={target}
+                className={className}
+            >
                 {text}
                 {children}
             </MUILink>

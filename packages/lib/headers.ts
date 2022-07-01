@@ -13,21 +13,21 @@ const ContentSecurityPolicy = `
     worker-src 'self' 'unsafe-inline' * blob:;
     object-src 'none';
     base-uri 'none';
-  `
+  `;
 
 /**
  * Security headers based on Next.js tips
  * https://nextjs.org/docs/advanced-features/security-headers
  */
 const Headers = {
-	'Content-Security-Policy': ContentSecurityPolicy.replace(/\n/g, ''),
-	'Referrer-Policy': 'origin-when-cross-origin',
-	'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
-	'Strict-Transport-Security': 'max-age=63072000; includeSubDomains; preload',
-	'X-Frame-Options': 'DENY',
-	'X-Content-Type-Options': 'nosniff',
-	'X-DNS-Prefetch-Control': 'on',
-	'X-XSS-Protection': '1; mode=block',
-}
+    'Content-Security-Policy': ContentSecurityPolicy.replace(/\n/g, ''),
+    'Referrer-Policy': 'origin-when-cross-origin',
+    'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+    'Strict-Transport-Security': 'max-age=63072000; includeSubDomains; preload',
+    'X-Frame-Options': 'DENY',
+    'X-Content-Type-Options': 'nosniff',
+    'X-DNS-Prefetch-Control': 'on',
+    'X-XSS-Protection': '1; mode=block',
+};
 
-export default Headers
+export default Headers;

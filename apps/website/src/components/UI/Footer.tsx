@@ -8,9 +8,8 @@ export function Copyright() {
     return (
         <Typography variant="body2" color="text.secondary" align="center">
             {'Cagepa © '}
-            <SuperLink href="https://www.cagepa.pb.gov.br/">
-                cagepa.pb.gov.br
-            </SuperLink>{' - '}
+            <SuperLink href="https://www.cagepa.pb.gov.br/">cagepa.pb.gov.br</SuperLink>
+            {' - '}
             {new Date().getFullYear()}
             {'.'}
         </Typography>
@@ -25,7 +24,7 @@ export default function MainFooter() {
                 py: 3,
                 px: 2,
                 mt: 'auto',
-                backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#373B3E' : grey[200]
+                backgroundColor: theme => (theme.palette.mode === 'dark' ? '#373B3E' : grey[200]),
             }}
         >
             <Container maxWidth="sm">

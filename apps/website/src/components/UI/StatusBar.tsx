@@ -12,7 +12,7 @@ const useStyles = makeStyles({
 export type StatusBarProps = {
     marginTop?: number;
     zIndex?: number;
-}
+};
 
 export default function StatusBar({ marginTop, zIndex = 2 }: StatusBarProps) {
     const classes = useStyles();
