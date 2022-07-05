@@ -10,15 +10,12 @@
             "@themes/*": ["./src/themes/*"],
             "@utils/*": ["./src/utils/*"],
             "@types/*": ["./src/types/*"],
-            "@services/*": ["./src/services/*"],
-            "lib": ["../../packages/lib/"],
-            "ui": ["../../packages/ui/"],
-            "config": ["../../packages/config/"]
+            "@services/*": ["./src/services/*"]
         }
     },
     "typeRoot": "./src/types/",
     "rootDir": "src",
-    "extends": "../../packages/tsconfig/nextjs.json",
-    "include": ["types.d.ts", "**/*.ts", "**/*.tsx", "../../packages/ui/StatusBar.tsx"],
+    "extends": "tsconfig/nextjs.json",
+    "include": ["types.d.ts", "**/*.ts", "**/*.tsx"],
     "exclude": ["node_modules"]
 }

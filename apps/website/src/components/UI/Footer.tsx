@@ -28,7 +28,7 @@ export default function MainFooter() {
             }}
         >
             <Container maxWidth="sm">
-                <Typography variant="body1">
+                <Typography variant="body1" align="center">
                     This is a website template with React, Next JS, MUI, NextAuth and some other dependencies,{' '}
                     <SuperLink href="https://github.com/SeltikHD/nextjs-typescript-app/blob/master/README.md">
                         take a look at the README.

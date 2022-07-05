@@ -29,8 +29,6 @@ const MenuIcon = dynamic(() => import('@mui/icons-material/Menu'));
 const AccountCircle = dynamic(() => import('@mui/icons-material/AccountCircle'));
 const MoreIcon = dynamic(() => import('@mui/icons-material/MoreVert'));
 const SettingsIcon = dynamic(() => import('@mui/icons-material/Settings'));
-const FolderIcon = dynamic(() => import('@mui/icons-material/Folder'));
-const CloudIcon = dynamic(() => import('@mui/icons-material/Cloud'));
 const HomeIcon = dynamic(() => import('@mui/icons-material/Home'));
 
 export const DarkModeSwitch = styled(Switch)(({ theme }) => ({
@@ -236,10 +234,10 @@ export default function MainHeader({ customDrawer, session, loadingSession }: Pr
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Perfil</MenuItem>
+            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
             <MenuItem onClick={handleMenuClose}>
                 <SuperLink href="/account" color="inherit">
-                    Minha conta
+                    My account
                 </SuperLink>
             </MenuItem>
             <MenuItem
@@ -249,7 +247,7 @@ export default function MainHeader({ customDrawer, session, loadingSession }: Pr
                     setAuthorized(false);
                 }}
             >
-                Sair
+                Exit
             </MenuItem>
         </Menu>
     );
@@ -331,7 +329,7 @@ export default function MainHeader({ customDrawer, session, loadingSession }: Pr
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        Painel de Administração
+                        NextJS Example - Home
                     </Typography>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
@@ -461,7 +459,7 @@ export const OptionsDrawer = ({ open, handleClose, handleProfileMenuOpen, width,
                                     startIcon={<AccountCircle />}
                                     onClick={handleProfileMenuOpen}
                                 >
-                                    Entrar
+                                    Sign In
                                 </Button>
                             </Grid>
                         )}
@@ -474,30 +472,9 @@ export const OptionsDrawer = ({ open, handleClose, handleProfileMenuOpen, width,
                             <ListItemIcon>
                                 <HomeIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Home" secondary="Página inicial" />
+                            <ListItemText primary="Home" secondary="Initial Page" />
                         </ListItemButton>
                     </ListItem>
-                    <Divider />
-                    <ListItem disablePadding>
-                        <ListItemButton onClick={() => router.push('/files/')}>
-                            <ListItemIcon>
-                                <FolderIcon sx={{ color: '#FFDB75' }} />
-                            </ListItemIcon>
-                            <ListItemText primary="File Explorer" secondary="Gerenciador de arquivos" />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton onClick={() => router.push('/dbmanager/node/')}>
-                            <ListItemIcon>
-                                <CloudIcon />
-                            </ListItemIcon>
-                            <ListItemText
-                                primary="DB Manager - NodeJS"
-                                secondary="Painel CMS para o banco de dados NodeJS"
-                            />
-                        </ListItemButton>
-                    </ListItem>
-                    <Divider />
                 </List>
             </>
         </TemporaryDrawer>
@@ -520,14 +497,14 @@ export const SettingsDrawer = ({ open, handleClose, width }: SettingsDrawerProps
         <TemporaryDrawer open={open} handleClose={handleClose} width={width.toString()} anchor="right">
             <Toolbar>
                 <Typography variant="h5" component="h1" noWrap flexGrow={1} textAlign="center">
-                    Configurações
+                    Settings
                 </Typography>
             </Toolbar>
             <Divider />
             <Grid container direction="column" justifyContent="space-between" alignItems="center" spacing={2}>
                 <Grid item sx={{ marginTop: 3 }}>
                     <Typography variant="h6" component="h1" noWrap>
-                        Tema
+                        Theme
                     </Typography>
                 </Grid>
                 <Grid item>
@@ -535,7 +512,7 @@ export const SettingsDrawer = ({ open, handleClose, width }: SettingsDrawerProps
                 </Grid>
                 <Grid item sx={{ marginTop: 3 }}>
                     <Typography variant="h6" component="h1" noWrap>
-                        Animações
+                        Animations
                     </Typography>
                 </Grid>
                 <Grid item>
