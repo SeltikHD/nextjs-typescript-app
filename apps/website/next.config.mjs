@@ -25,9 +25,7 @@ const nextConfig = {
     compiler: {
         removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['log', 'warn', 'error'] } : false,
     },
-    experimental: {
-        outputStandalone: true,
-    },
+    output: 'standalone',
     webpack: config => {
         config.module.rules.push({
             test: /\.md$/,

@@ -21,13 +21,13 @@
         "prepare": "husky install",
         "upgrade_all": "yarn upgrade-interactive --latest",
         "db": "prisma studio",
-        "db-save": "prisma db pull",
         "db-dev": "prisma migrate dev",
+        "db-reset": "prisma migrate reset",
+        "db-prod": "prisma migrate prod",
         "generate": "prisma generate",
         "husky-config": "husky add .husky/pre-commit \"yarn lint-staged\"",
-        "db-up": "prisma migrate up --experimental",
         "heroku-postbuild": "yarn prisma migrate deploy && yarn generate && yarn next build",
-        "lint": "yarn eslint apps",
+        "lint": "yarn eslint",
         "lint:fix": "yarn lint --fix",
         "prettier": "prettier apps --check",
         "prettier:fix": "prettier --write",
@@ -39,9 +39,9 @@
         "packages/*"
     ],
     "devDependencies": {
-        "@typescript-eslint/eslint-plugin": "^5.30.3",
-        "@typescript-eslint/parser": "^5.30.3",
-        "eslint": "8.18.0",
+        "@typescript-eslint/eslint-plugin": "^5.30.5",
+        "@typescript-eslint/parser": "^5.30.5",
+        "eslint": "8.19.0",
         "eslint-config-next": "^12.2.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-import": "^2.26.0",
@@ -55,8 +55,12 @@
         "turbo": "1.3.1",
         "typescript": "^4.7.4"
     },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
     "engines": {
         "node": ">=14.18.0"
-    },
-    "packageManager": "yarn@1.22.17"
+    }
 }

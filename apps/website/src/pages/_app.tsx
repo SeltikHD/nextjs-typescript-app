@@ -16,12 +16,15 @@ import getTheme from '@themes/Theme';
 import useDarkMode from 'use-dark-mode';
 
 import NProgress from 'nprogress';
-import '../../public/nprogress.css';
+import '@public/nprogress.css';
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+
+import { useLocalStorage } from 'react-use';
+import aos from 'aos';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -32,6 +35,7 @@ export default function App({
 }: AppProps) {
     const [theme, setTheme] = useState<Theme>(getTheme('dark'));
     const [hydrated, setHydrated] = useState(false);
+    const [animations] = useLocalStorage<boolean>('animations');
     const router = useRouter();
 
     useEffect(() => {
@@ -52,6 +56,18 @@ export default function App({
             router.events.off('routeChangeError', handleStop);
         };
     }, [router]);
+
+    useEffect(() => {
+        if (animations ?? true) {
+            require('aos/dist/aos.css');
+
+            aos.init({
+                useClassNames: true,
+                easing: 'ease-out-cubic',
+                offset: 50,
+            });
+        }
+    }, [animations]);
 
     useEffect(() => {
         setHydrated(true);

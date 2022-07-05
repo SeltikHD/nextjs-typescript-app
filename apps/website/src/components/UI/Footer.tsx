@@ -1,14 +1,14 @@
-import { grey } from '@mui/material/colors';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import SuperLink from '@components/SuperLink';
+import { grey } from '@mui/material/colors';
 
-export function Copyright() {
+function Copyright() {
     return (
         <Typography variant="body2" color="text.secondary" align="center">
-            {'Cagepa © '}
-            <SuperLink href="https://www.cagepa.pb.gov.br/">cagepa.pb.gov.br</SuperLink>
+            {'SeltikHD © '}
+            <SuperLink href="https://github.com/SeltikHD/nextjs-typescript-app">Template repository</SuperLink>
             {' - '}
             {new Date().getFullYear()}
             {'.'}
@@ -28,6 +28,12 @@ export default function MainFooter() {
             }}
         >
             <Container maxWidth="sm">
+                <Typography variant="body1">
+                    This is a website template with React, Next JS, MUI, NextAuth and some other dependencies,{' '}
+                    <SuperLink href="https://github.com/SeltikHD/nextjs-typescript-app/blob/master/README.md">
+                        take a look at the README.
+                    </SuperLink>
+                </Typography>
                 <Copyright />
             </Container>
         </Box>

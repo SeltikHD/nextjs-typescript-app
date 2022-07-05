@@ -44,8 +44,8 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid()) /// prisma-reader:{alias: "Id"}
-  username      String?   @unique /// prisma-reader:{alias: "Nome de usuário"}
+  id            String    @id @default(cuid())
+  username      String?   @unique
   roleId        String?   @map("role_id")
   name          String?
   email         String?   @unique
