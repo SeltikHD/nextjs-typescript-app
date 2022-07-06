@@ -1,15 +1,17 @@
 import { Button, TextField, Theme, Box } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import { signIn } from 'next-auth/react';
-import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { makeStyles } from '@mui/styles';
+import { useEffect, useState } from 'react';
+import { signIn } from 'next-auth/react';
+import dynamic from 'next/dynamic';
+import api from '@services/api';
 
-import GoogleIcon from '@mui/icons-material/Google';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import EmailIcon from '@mui/icons-material/Email';
-import LockIcon from '@mui/icons-material/Lock';
+const GoogleIcon = dynamic(() => import('@mui/icons-material/Google'));
+const FacebookIcon = dynamic(() => import('@mui/icons-material/Facebook'));
+const TwitterIcon = dynamic(() => import('@mui/icons-material/Twitter'));
+const GitHubIcon = dynamic(() => import('@mui/icons-material/GitHub'));
+const EmailIcon = dynamic(() => import('@mui/icons-material/Email'));
+const LockIcon = dynamic(() => import('@mui/icons-material/Lock'));
 
 type Props = {
     onClose?: () => void | undefined;
@@ -93,67 +95,85 @@ function EmailForm({ onClose }: Props) {
     );
 }
 
+interface Provider {
+    id: string;
+    name: string;
+    type?: string;
+    signinUrl?: string;
+    callbackUrl?: string;
+}
+
+interface ProvidersResponse {
+    email: Provider;
+    auth0: Provider;
+    facebook: Provider;
+    github: Provider;
+    google: Provider;
+    twitter: Provider;
+}
+
 export default function SignUpForm({ onClose }: Props) {
     const classes = useStyles();
-    const providers = [
-        {
-            id: 'google', //ID
-            name: 'Google', //Provider Name
-        },
-        {
-            id: 'facebook', //ID
-            name: 'Facebook', //Provider Name
-        },
-        {
-            id: 'twitter', //ID
-            name: 'Twitter', //Provider Name
-        },
-        {
-            id: 'github', //ID
-            name: 'GitHub', //Provider Name
-        },
-    ];
 
-    const loginOptions = (
-        <Box className={classes.root}>
-            {providers.map(provider => (
-                <Button
-                    className={classes.providerButton}
-                    variant="contained"
-                    startIcon={getProviderIcon(provider.id)}
-                    onClick={() => signIn(provider.id)}
-                    key={provider.name}
-                >
-                    {provider.name}
-                </Button>
-            ))}
-            <Button
-                className={classes.providerButton}
-                variant="contained"
-                startIcon={getProviderIcon('email')}
-                onClick={() => {
-                    handleEmailForm(true);
-                }}
-            >
-                Email
-            </Button>
-        </Box>
+    const [providers, setProviders] = useState<Provider[]>([]);
+    const [emailForm, setEmailForm] = useState(false);
+
+    useEffect(() => {
+        const getProviders = async () => {
+            const res = await api.get<ProvidersResponse>('/auth/providers/').then(response => response.data);
+
+            type Key = keyof typeof res;
+
+            const keys = Object.keys(res);
+
+            setProviders(
+                keys.map(p => {
+                    const provider = p as Key;
+
+                    return res[provider];
+                }),
+            );
+        };
+
+        getProviders();
+    }, []);
+
+    return (
+        <>
+            {emailForm ? (
+                <EmailForm onClose={onClose ? onClose : () => setEmailForm(false)} />
+            ) : (
+                <Box className={classes.root}>
+                    {providers.map(provider => (
+                        <Button
+                            className={classes.providerButton}
+                            variant="contained"
+                            startIcon={getProviderIcon(provider.id)}
+                            onClick={() => signIn(provider.id)}
+                            key={provider.name}
+                        >
+                            {provider.name}
+                        </Button>
+                    ))}
+                    {providers.includes({
+                        id: 'email',
+                        name: 'Email',
+                    }) && (
+                        <Button
+                            className={classes.providerButton}
+                            variant="contained"
+                            startIcon={getProviderIcon('email')}
+                            onClick={() => {
+                                setEmailForm(true);
+                            }}
+                        >
+                            Email
+                        </Button>
+                    )}
+                </Box>
+            )}
+        </>
     );
-
-    const [form, setForm] = useState(loginOptions);
-
-    const handleEmailForm = (open: boolean) => {
-        if (open) {
-            const emailOnClose = () => {
-                handleEmailForm(false);
-            };
-            setForm(<EmailForm onClose={onClose ? onClose : emailOnClose} />);
-        } else {
-            setForm(loginOptions);
-        }
-    };
-
-    return form;
 }
 
 function getProviderIcon(icon: string) {

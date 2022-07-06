@@ -22,7 +22,8 @@ const Button = dynamic(() => import('@mui/material/Button'));
 const Typography = dynamic(() => import('@mui/material/Typography'));
 
 interface AuthProps {
-    blockUnauthorized?: boolean;
+    blockUnauthenticated?: boolean;
+    allowAnonymous?: boolean;
     skeleton?: ReactNode;
     roleId?: string;
     roleName?: string;
@@ -138,7 +139,8 @@ function Auth({
     roleName,
     permissions,
     unauthorized,
-    blockUnauthorized,
+    blockUnauthenticated,
+    allowAnonymous,
     router,
     session,
     status,
@@ -156,7 +158,7 @@ function Auth({
         }
     };
 
-    if (!blockUnauthorized) return <>{children}</>;
+    if (!blockUnauthenticated) return <>{children}</>;
 
     if (status != 'loading') {
         if (session == null) {
@@ -165,11 +167,11 @@ function Auth({
         }
         const isAuthorized = authFunction(session, status, roleId, roleName, permissions);
 
-        if (isAuthorized == 'noRole')
+        if (isAuthorized == 'noRole' && !allowAnonymous)
             return (
                 <>
-                    <Typography variant="h5">Você não tem permissão para acessar esta página.</Typography>
-                    <Button onClick={() => signOut()}>Sair da conta</Button>
+                    <Typography variant="h5">You do not have permission to access this page.</Typography>
+                    <Button onClick={() => signOut()}>Sign Out</Button>
                 </>
             );
         else if (isAuthorized) return <>{children}</>;

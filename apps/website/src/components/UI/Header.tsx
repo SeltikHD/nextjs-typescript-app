@@ -165,7 +165,7 @@ export default function MainHeader({ customDrawer, session, loadingSession }: Pr
     const [openSignIn, setOpenSignIn] = useState<boolean>(false);
     const [openDrawer, setOpenDrawer] = useState<boolean>(false);
     const [openSettings, setOpenSettings] = useState<boolean>(false);
-    const [authorized, setAuthorized] = useState<boolean>(session != undefined && session != null);
+    const authorized = session != undefined && session != null;
 
     const drawerWidth = '25%';
 
@@ -244,7 +244,6 @@ export default function MainHeader({ customDrawer, session, loadingSession }: Pr
                 onClick={async () => {
                     handleMenuClose();
                     await signOut();
-                    setAuthorized(false);
                 }}
             >
                 Exit
@@ -335,7 +334,7 @@ export default function MainHeader({ customDrawer, session, loadingSession }: Pr
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         {!loadingSession ? (
                             authorized ? (
-                                <Tooltip title="Conta" arrow>
+                                <Tooltip title="Account" arrow>
                                     <IconButton
                                         size="large"
                                         aria-label="account of current user"
@@ -351,7 +350,7 @@ export default function MainHeader({ customDrawer, session, loadingSession }: Pr
                                     </IconButton>
                                 </Tooltip>
                             ) : (
-                                <Tooltip title="Entrar" arrow>
+                                <Tooltip title="Sign In" arrow>
                                     <IconButton
                                         size="large"
                                         aria-label="account of current user"
@@ -366,7 +365,7 @@ export default function MainHeader({ customDrawer, session, loadingSession }: Pr
                                 </Tooltip>
                             )
                         ) : null}
-                        <Tooltip title="Configurações" arrow>
+                        <Tooltip title="Settings" arrow>
                             <IconButton
                                 size="large"
                                 aria-label="settings of the page"
