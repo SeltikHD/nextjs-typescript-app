@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./",
+        "paths": {
+            "@components/*": ["./src/components/*"],
+            "@lib/*": ["./src/lib/*"],
+            "@styles/*": ["./src/styles/*"],
+            "@public/*": ["./public/*"],
+            "@data/*": ["./data/*"],
+            "@themes/*": ["./src/themes/*"],
+            "@utils/*": ["./src/utils/*"],
+            "@types/*": ["./src/types/*"],
+            "@services/*": ["./src/services/*"]
+        }
+    },
+    "typeRoot": "./src/types/",
+    "rootDir": "src",
+    "extends": "tsconfig/nextjs.json",
+    "include": ["types.d.ts", "**/*.ts", "**/*.tsx"],
+    "exclude": ["node_modules"]
+}
