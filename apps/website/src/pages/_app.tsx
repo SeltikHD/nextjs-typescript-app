@@ -23,6 +23,10 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
+import type { LayoutProps } from '@components/UI/Layout';
+import LayoutContext from 'src/contexts/LayoutContext';
+import Layout from '@components/UI/Layout';
+
 import { useLocalStorage } from 'react-use';
 import aos from 'aos';
 
@@ -36,6 +40,7 @@ export default function App({
     const [theme, setTheme] = useState<Theme>(getTheme('dark'));
     const [hydrated, setHydrated] = useState(false);
     const [animations] = useLocalStorage<boolean>('animations');
+    const [layoutProps, setLayoutProps] = useState<LayoutProps>({});
     const router = useRouter();
 
     useEffect(() => {
@@ -76,8 +81,16 @@ export default function App({
     if (!hydrated) return null;
 
     return (
-        <Providers session={session} emotionCache={emotionCache} theme={theme} setTheme={setTheme}>
-            <Component {...pageProps} />
+        <Providers
+            session={session}
+            emotionCache={emotionCache}
+            theme={theme}
+            setTheme={setTheme}
+            setLayoutProps={props => setLayoutProps(props)}
+        >
+            <Layout {...layoutProps}>
+                <Component {...pageProps} />
+            </Layout>
         </Providers>
     );
 }
@@ -101,19 +114,20 @@ function ColorThemeProvider({ children, theme, setTheme }: ColorThemeProviderPro
 
 interface ProvidersProps extends ColorThemeProviderProps {
     children: ReactNode;
-    session?: Session;
     emotionCache: EmotionCache;
     theme: Theme;
+    setLayoutProps: (props: LayoutProps) => void;
+    session?: Session;
 }
 
-function Providers({ children, session, emotionCache, theme, ...props }: ProvidersProps) {
+function Providers({ children, session, emotionCache, theme, setLayoutProps, ...props }: ProvidersProps) {
     return (
         <SessionProvider session={session}>
             <CacheProvider value={emotionCache}>
                 <ThemeProvider theme={theme}>
                     <CssBaseline />
                     <ColorThemeProvider theme={theme} {...props}>
-                        {children}
+                        <LayoutContext.Provider value={{ setProps: setLayoutProps }}>{children}</LayoutContext.Provider>
                     </ColorThemeProvider>
                 </ThemeProvider>
             </CacheProvider>

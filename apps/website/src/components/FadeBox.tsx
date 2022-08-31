@@ -63,7 +63,7 @@ export default function FadeBox({ children, all, component = <></>, ...props }: 
     });
 
     if (component && isValidElement(component)) {
-        return cloneElement(component, { children: fadeChildren });
+        return cloneElement(component, { children: fadeChildren } as any);
     }
 
     return <>{fadeChildren}</>;
@@ -102,7 +102,7 @@ function Fade({
             'data-aos-duration': duration?.toString(),
             'data-aos-offset': offset?.toString(),
             'data-aos-delay': delay?.toString(),
-        })
+        } as any)
     ) : (
         <div
             data-aos={animation}

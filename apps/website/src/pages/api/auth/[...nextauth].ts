@@ -91,9 +91,7 @@ const getProviders = () => {
     if (process.env.TWITTER_ID && process.env.TWITTER_SECRET) {
         providers.push(
             TwitterProvider({
-                // @ts-ignore
                 clientId: process.env.TWITTER_ID,
-                // @ts-ignore
                 clientSecret: process.env.TWITTER_SECRET,
             }),
         );

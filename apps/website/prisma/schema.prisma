@@ -79,6 +79,7 @@ model Role {
   updatedAt   DateTime      @updatedAt @map("updated_at")
 
   users User[]
+
   @@map("roles")
 }
 

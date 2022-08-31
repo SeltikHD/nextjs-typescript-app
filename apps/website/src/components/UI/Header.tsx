@@ -157,9 +157,10 @@ type Props = {
     customDrawer?: ReactNode;
     session: Session | null;
     loadingSession: boolean;
+    title: string;
 };
 
-export default function MainHeader({ customDrawer, session, loadingSession }: Props) {
+export default function MainHeader({ customDrawer, session, loadingSession, title }: Props) {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState<null | HTMLElement>(null);
     const [openSignIn, setOpenSignIn] = useState<boolean>(false);
@@ -328,7 +329,7 @@ export default function MainHeader({ customDrawer, session, loadingSession }: Pr
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        NextJS Example - Home
+                        {title}
                     </Typography>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>

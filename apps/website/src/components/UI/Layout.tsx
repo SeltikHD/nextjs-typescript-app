@@ -31,8 +31,8 @@ interface AuthProps {
     unauthorized?: string;
 }
 
-interface LayoutProps extends MetatagsProps, SchemaProps {
-    children: ReactNode;
+export interface LayoutProps extends MetatagsProps, SchemaProps {
+    children?: ReactNode;
     customDrawer?: ReactNode;
     customMetatags?: boolean;
     readStatusBar?: boolean;
@@ -43,6 +43,7 @@ interface LayoutProps extends MetatagsProps, SchemaProps {
     overflowY?: boolean | string;
     overflowX?: boolean | string;
     session?: Session | null;
+    visible?: boolean;
     setSession?: (session: Session | null, status: 'authenticated' | 'loading' | 'unauthenticated') => void;
 }
 
@@ -85,6 +86,7 @@ export default function Layout({
     overflowX = false,
     session,
     authComponent = true,
+    visible = true,
     ...props
 }: LayoutProps) {
     const { data, status } = useSession();
@@ -97,7 +99,12 @@ export default function Layout({
     const body = (
         <>
             {header && (
-                <Header customDrawer={customDrawer} session={session ?? data} loadingSession={status === 'loading'} />
+                <Header
+                    customDrawer={customDrawer}
+                    session={session ?? data}
+                    loadingSession={status === 'loading'}
+                    title={props.title ?? 'Next.Js'}
+                />
             )}
             {readStatusBar && <StatusBar />}
             {header ? (
@@ -121,12 +128,16 @@ export default function Layout({
         <>
             <Schema {...defaultSchemaProps} {...props} />
             {customMetatags && <Metatags {...defaultMetatagsProps} {...props} />}
-            {authComponent ? (
-                <Auth router={router} {...props.auth} session={session ?? data} status={status}>
-                    {body}
-                </Auth>
+            {visible ? (
+                authComponent ? (
+                    <Auth router={router} {...props.auth} session={session ?? data} status={status}>
+                        {body}
+                    </Auth>
+                ) : (
+                    { body }
+                )
             ) : (
-                { body }
+                <>{children}</>
             )}
         </>
     );
@@ -152,9 +163,12 @@ function Auth({
 }) {
     const unauthorizedAction = () => {
         if (unauthorized) {
-            router.push(unauthorized);
-        } else {
-            router.push({ pathname: '/login', query: { redirect: router.asPath } });
+            router.replace(unauthorized);
+        } else if (!router.asPath.includes('/login')) {
+            router.replace({
+                pathname: '/login',
+                query: { redirect: router.asPath },
+            });
         }
     };
 
